@@ -1,6 +1,6 @@
 import java.util.Date;
 public class Spesa {
-	
+	public String idSpesa;
 	public String descrizione;
 	public Date data;
 	public double ammontare;
@@ -9,6 +9,14 @@ public class Spesa {
 		this.ammontare=ammontare;
 		this.data=data;
 		this.descrizione=descrizione;
+	}
+	
+	public String getIdSpesa(){
+		return idSpesa;
+	}
+	
+	public void setIdSpesa(String idSpesa){
+		this.idSpesa=idSpesa;
 	}
 	
 	public double getAmmontare(){

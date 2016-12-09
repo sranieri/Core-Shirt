@@ -1,24 +1,32 @@
 
-public class Tshirt {
+public class Tshirt extends Articolo {
 	
-	String idTshirt,sesso,taglia,colore;
-	int quantita;
+	String idTshirt,sesso,taglia,colore,categoria;
 	
-	public Tshirt(String idTshirt,String sesso,String taglia,String colore,int quantita){
-		this.idTshirt=idTshirt;
+	public Tshirt(String idArticolo,String sesso,String taglia,String colore,int quantita,String nome,String categoria){	
+		super(idArticolo,nome,categoria,12.0,quantita);
 		this.sesso=sesso;
 		this.taglia=taglia;
 		this.colore=colore;
-		this.quantita=quantita;
+		this.nome=nome;
 	}
 	
-	public String getIdTshirt(){
-		return idTshirt;
+	public String getNome(){
+		return nome;
 	}
 	
-	public void setIdTshirt(String idTshirt){
-		this.idTshirt=idTshirt;
+	public void setNome(String nome){
+		this.nome=nome;
 	}
+	
+	public String getidArticolo(){
+		return idArticolo;
+	}
+	
+	public void getIdArticolo(String idArticolo){
+		this.idArticolo=idArticolo;
+	}
+	
 	
 	public String getSesso(){
 		return sesso;

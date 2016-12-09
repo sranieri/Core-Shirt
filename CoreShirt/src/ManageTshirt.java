@@ -49,7 +49,7 @@ public class ManageTshirt {
 			PreparedStatement ps=DbConnect.con.prepareStatement("select * from tshirt");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
-				Tshirt t=new Tshirt(rs.getString("idTshirt"),rs.getString("sesso"),rs.getString("taglia"),rs.getString("colore"),rs.getInt("quantita"));
+				Tshirt t=new Tshirt(rs.getString("idArticolo"),rs.getString("sesso"),rs.getString("taglia"),rs.getString("colore"),rs.getInt("quantita"),rs.getString("nome"),rs.getString("categoria"));
 				tshirts.add(t);
 			}
 			ps.close();

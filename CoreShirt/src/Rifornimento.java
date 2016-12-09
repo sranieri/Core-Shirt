@@ -7,7 +7,7 @@ public class Rifornimento {
 	public double totale;
 	public Date dataRichiesta,dataEffettuazione,dataConsegna;
 	
-	public Rifornimento(String idRifornimento,ArrayList<Articolo> listaArticoli,double totale,String stato,String idDipendente,Date dataRichiesta,Date dataEffettuazione,Date dataConsegna){
+	public Rifornimento(String idRifornimento,double totale,String stato,String idDipendente,Date dataRichiesta,Date dataEffettuazione,Date dataConsegna){
 		this.idRifornimento=idRifornimento;
 		this.listaArticoli=listaArticoli;
 		this.totale=totale;

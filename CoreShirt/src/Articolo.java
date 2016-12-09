@@ -13,6 +13,7 @@ public class Articolo {
 		this.quantita=quantita;
 	}
 	
+	
 	public String getIdArticolo(){
 		return idArticolo;
 	}
