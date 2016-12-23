@@ -44,8 +44,11 @@ public class ManageCarrello {
 		    	while(rs.next()){
 		    		id=rs.getString(1);
 		    	}
-		    	String insert="insert into composizioneordine(idordine,idtshirt,pezzi) values("+i+","+id+","+v.getquantita()+");";
+		    	String insert="insert into composizioneordine(idordine,idtshirt,pezzi) values(?,?,?);";
 		    	preparedStatement = connection.prepareStatement(insert);
+		    	preparedStatement.setInt(1,i);
+		    	preparedStatement.setInt(2,Integer.parseInt(id));
+		    	preparedStatement.setInt(3,v.getquantita());
 		    	preparedStatement.execute();
 		    }
 		    cart.delete();

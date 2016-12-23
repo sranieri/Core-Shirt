@@ -9,50 +9,11 @@ import java.sql.*;
 public class ManageArticolo{
 	
 	private static final String TABLE_NAME = "articolo";
-	private	String idArticolo,nome,categoria;
-	private double prezzo;
-	private int quantita;
-	
+
 	private ArrayList<Articolo> articoli;
 
 	public ManageArticolo(){}
-	
-	
-	public String getIdArticolo(){
-		return idArticolo;
-	}
-	
-	public void setIdArticolo(String idArticolo){
-		this.idArticolo=idArticolo;
-	}
 
-	public String getNome(){
-		return nome;
-	}
-	
-	public void setNome(String nome){
-		this.nome=nome;
-	}
-	
-	public String getCategoria(){
-		return categoria;
-	}
-	
-	public double getPrezzo(){
-		return prezzo;
-	}
-	
-	public void setPrezzo(double prezzo){
-		this.prezzo=prezzo;
-	}
-	
-	public int getQuantita(){
-		return quantita;
-	}
-	
-	public void setQuantita(int quantita){
-		this.quantita=quantita;
-	}
 	
 	public ArrayList<Articolo> getArticolo(){
 		DbConnect.connect();
@@ -74,16 +35,16 @@ public class ManageArticolo{
 	}
 	
 	
-	public boolean insertArticolo(){
+	public boolean insertArticolo(Articolo a){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("insert into articolo values(?,?,?,?,?)");
-			ps.setString(1,idArticolo);
-			ps.setString(2,nome);
-			ps.setString(3,categoria);
-			ps.setDouble(4,prezzo);
-			ps.setInt(5,quantita);
+			ps.setInt(1,a.getidArticolo());
+			ps.setString(2,a.getnome());
+			ps.setString(3,a.getcategoria());
+			ps.setDouble(4,a.getprezzo());
+			ps.setInt(5,a.getquantita());
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 		}catch(SQLException e){
@@ -94,7 +55,7 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean deleteArticolo(){
+	public boolean deleteArticolo(String idArticolo){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
@@ -110,7 +71,7 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean updateNome(){
+	public boolean updateNome(String idArticolo,String nome){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
@@ -127,7 +88,7 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean updateCategoria(){
+	public boolean updateCategoria(String idArticolo,String categoria){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
@@ -144,7 +105,7 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean updatePrezzo(){
+	public boolean updatePrezzo(String idArticolo,double prezzo){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
@@ -161,7 +122,7 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean updateQuantita(){
+	public boolean updateQuantita(String idArticolo,int quantita){
 		DbConnect.connect();
 		boolean flag=false;
 		try{

@@ -15,7 +15,6 @@ public class Articolo implements Serializable {
 	String categoria;
 
 	public Articolo(int idArticolo, String nome, double prezzo, int quantita, String categoria) {
-		super();
 		this.idArticolo = idArticolo;
 		this.nome = nome;
 		this.prezzo = prezzo;

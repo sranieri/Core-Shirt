@@ -5,16 +5,7 @@ public class Dipendente {
 	String nome,cognome,codiceFiscale,tipo,username,password,id;
 	double stipendio;
 	
-	public Dipendente(String nome,String cognome,String codiceFiscale,String id, String tipo,double stipendio,String username,String password){
-		this.nome=nome;
-		this.cognome=cognome;
-		this.codiceFiscale=codiceFiscale;
-		this.id=id;
-		this.tipo=tipo;
-		this.stipendio=stipendio;
-		this.username=username;
-		this.password=password;
-	}
+	public Dipendente(){}
 	
 	public String getNome(){
 		return nome;

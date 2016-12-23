@@ -1,62 +1,18 @@
 package control;
 import java.util.ArrayList;
 
-import model.Dipendente;
+
 
 import java.sql.*;
+import model.Dipendente;
 public class ManageDipendente {
 	
 	public ArrayList<Dipendente> dipendenti;
 	
 	public ManageDipendente(){}
 	
-	private String username,password,nome,cognome,tipo,idDipendente,codiceFiscale;
-	private double stipendio;
+
 	private boolean flag;
-	
-	public String getNome(){
-		return nome;
-	}
-	
-	public void setNome(String nome){
-		this.nome=nome;
-	}
-	
-	public String getCognome(){
-		return cognome;
-	}
-	
-	public void setCognome(String cognome){
-		this.cognome=cognome;
-	}
-	
-	public String getCodiceFiscale(){
-		return codiceFiscale;
-	}
-	
-	public void setCodiceFiscale(String cf){
-		this.codiceFiscale=cf;
-	}
-	
-	public String getTipo(){
-		return tipo;
-	}
-	
-	public String getIdDipendente(){
-		return idDipendente;
-	}
-	
-	public void setIdDipendente(String id){
-		this.idDipendente=id;
-	}
-	
-	public double getStipendio(){
-		return stipendio;
-	}
-	
-	public void setStipendio(double stipendio){
-		this.stipendio=stipendio;
-	}
 	
 	public ArrayList<Dipendente> getDipendenti(){
 		DbConnect.connect();
@@ -65,9 +21,18 @@ public class ManageDipendente {
 			PreparedStatement ps=DbConnect.con.prepareStatement("select * from Dipendente");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
-				Dipendente d=new Dipendente(rs.getString("nome"),rs.getString("cognome"),rs.getString("codiceFiscale"),rs.getString("idDipendente"),rs.getString("tipo"),rs.getInt("stipendio"),rs.getString("username"),rs.getString("password"));
+				Dipendente d=new Dipendente();
+				d.setId(rs.getString("idDipendente"));
+				d.setNome(rs.getString("nome"));
+				d.setCognome(rs.getString("cognome"));
+				d.setCodiceFiscale(rs.getString("codiceFiscale"));
+				d.setStipendio(rs.getDouble("stipendio"));
+				d.setTipo(rs.getString("tipo"));
+				d.setUsername(rs.getString("username"));
+				d.setPassword(rs.getString("password"));
 				dipendenti.add(d);
 			}
+			System.out.println(dipendenti.size());
 			ps.close();
 			DbConnect.close();
 		}catch(SQLException e){
@@ -78,19 +43,19 @@ public class ManageDipendente {
 	}
 	
 	
-	public boolean insertDipendente(){
+	public boolean insertDipendente(Dipendente d){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("insert into dipendente values(?,?,?,?,?,?,?,?)");
-			ps.setString(1,idDipendente);
-			ps.setString(2,nome);
-			ps.setString(3,cognome);
-			ps.setString(3,codiceFiscale);
-			ps.setDouble(4,stipendio);
-			ps.setString(5,tipo);
-			ps.setString(6,username);
-			ps.setString(7,password);
+			PreparedStatement ps=DbConnect.con.prepareStatement("insert into dipendente values(?,?,?,?,?,?,?,?);");
+			ps.setString(1,d.getId());
+			ps.setString(2,d.getNome());
+			ps.setString(3,d.getCognome());
+			ps.setString(4,d.getCodiceFiscale());
+			ps.setDouble(5,d.getStipendio());
+			ps.setString(6,d.getTipo());
+			ps.setString(7,d.getUsername());
+			ps.setString(8,d.getPassword());
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 		}catch(SQLException e){
@@ -101,11 +66,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean deleteDipendente(){
+	public boolean deleteDipendente(String idDipendente){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("delete from amministratore where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("delete from dipendente where idDipendente=?");
 			ps.setString(1,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -117,11 +82,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateStipendio(){
+	public boolean updateStipendio(String idDipendente,double stipendio){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set stipendio=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set stipendio=? where idDipendente=?");
 			ps.setDouble(1,stipendio);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
@@ -134,11 +99,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateTipo(){
+	public boolean updateTipo(String idDipendente,String tipo){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set tipo=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set tipo=? where idDipendente=?");
 			ps.setString(1,tipo);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
@@ -151,11 +116,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateNome(){
+	public boolean updateNome(String idDipendente,String nome){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set nome=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set nome=? where idDipendente=?");
 			ps.setString(1,nome);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
@@ -168,12 +133,12 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateCognome(){
+	public boolean updateCognome(String idDipendente,String cognome){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set cognome=? where id=?");
-			ps.setString(1,nome);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set cognome=? where idDipendente=?");
+			ps.setString(1,cognome);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -185,11 +150,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateCodiceFiscale(){
+	public boolean updateCodiceFiscale(String idDipendente,String codiceFiscale){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set codiceFiscale=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set codiceFiscale=? where idDipendente=?");
 			ps.setString(1,codiceFiscale);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
@@ -202,11 +167,11 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updateUsername(){
+	public boolean updateUsername(String idDipendente,String username){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set username=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set username=? where idDipendente=?");
 			ps.setString(1,username);
 			ps.setString(2,idDipendente);
 			if(ps.executeUpdate()>0) flag=true;
@@ -219,13 +184,13 @@ public class ManageDipendente {
 		return flag;
 	}
 	
-	public boolean updatePassword(){
+	public boolean updatePassword(String idDipendente,String password){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set password=? where id=?");
-			ps.setString(1,nome);
-			ps.setString(2,idDipendente);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update dipendente set password=? where idDipendente=?");
+			ps.setString(1,idDipendente);
+			ps.setString(2,password);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();

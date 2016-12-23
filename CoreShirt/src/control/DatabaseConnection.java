@@ -11,8 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import model.Cart;
 import model.TShirt;
 import model.Articolo;
