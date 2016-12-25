@@ -15,7 +15,7 @@ public class ManageArticolo{
 	public ManageArticolo(){}
 
 	
-	public ArrayList<Articolo> getArticolo(){
+	public ArrayList<Articolo> getArticoli(){
 		DbConnect.connect();
 		articoli=new ArrayList<Articolo>();
 		try{
@@ -59,8 +59,8 @@ public class ManageArticolo{
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("delete from articolo where id=?");
-			ps.setString(1,idArticolo);
+			PreparedStatement ps=DbConnect.con.prepareStatement("delete from articolo where idarticolo=?");
+			ps.setInt(1,Integer.parseInt(idArticolo));
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -75,7 +75,7 @@ public class ManageArticolo{
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set nome=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set nome=? where idarticolo=?");
 			ps.setString(1,nome);
 			ps.setString(2,idArticolo);
 			if(ps.executeUpdate()>0) flag=true;
@@ -92,7 +92,7 @@ public class ManageArticolo{
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set categoria=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set categoria=? where idarticolo=?");
 			ps.setString(1,categoria);
 			ps.setString(2,idArticolo);
 			if(ps.executeUpdate()>0) flag=true;
@@ -105,12 +105,12 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean updatePrezzo(String idArticolo,double prezzo){
+	public boolean updatePrezzo(String idArticolo,String prezzo){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set prezzo=? where id=?");
-			ps.setDouble(1,prezzo);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set prezzo=? where idarticolo=?");
+			ps.setDouble(1,Double.parseDouble(prezzo));
 			ps.setString(2,idArticolo);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -126,7 +126,7 @@ public class ManageArticolo{
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set quantita=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set quantita=? where idarticolo=?");
 			ps.setInt(1,quantita);
 			ps.setString(2,idArticolo);
 			if(ps.executeUpdate()>0) flag=true;
@@ -156,7 +156,7 @@ public class ManageArticolo{
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setidArticolo(rs.getInt("idarticolo"));
+				bean.setId(rs.getInt("idarticolo"));
 				bean.setSesso(sesso);
 				bean.setnome(rs.getString("Nome"));
 				bean.setquantita(0);
@@ -188,7 +188,7 @@ public class ManageArticolo{
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Articolo bean = new Articolo();
-				bean.setidArticolo(rs.getInt("idarticolo"));
+				bean.setId(rs.getInt("idarticolo"));
 				bean.setSesso("M");
 				bean.setnome(rs.getString("Nome"));
 				//bean.setQuantity(rs.getInt("PzVenduti"));
@@ -221,7 +221,7 @@ public class ManageArticolo{
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Articolo bean = new Articolo();
-				bean.setidArticolo(rs.getInt("idarticolo"));
+				bean.setId(rs.getInt("idarticolo"));
 				bean.setSesso("F");
 				bean.setnome(rs.getString("Nome"));
 				//bean.setQuantity(rs.getInt("PzVenduti"));
@@ -252,7 +252,7 @@ public class ManageArticolo{
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Articolo bean = new Articolo();
-				bean.setidArticolo(rs.getInt("idarticolo"));
+				bean.setId(rs.getInt("idarticolo"));
 				bean.setSesso(sex);
 				bean.setnome(rs.getString("Nome"));
 				//bean.setQuantity(rs.getInt("PzVenduti"));

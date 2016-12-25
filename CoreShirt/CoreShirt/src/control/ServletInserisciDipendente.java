@@ -60,7 +60,7 @@ public class ServletInserisciDipendente extends HttpServlet {
 			System.out.println("ok");
 		else
 			System.out.println("no");
-		response.sendRedirect("CoreShirt/x.jsp");
+		response.sendRedirect("CoreShirt/GestioneDipendenti.jsp");
 		
 
 
