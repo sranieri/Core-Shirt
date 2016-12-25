@@ -1,0 +1,5 @@
+25/12/2016
+Aggiunta Gestione Dipendenti;
+Aggiunta script ajax per richieste asincrone nella sezione gestione dipendenti;
+Aggiunta script js per convalidazione campi input del form inserisci dipendente;
+Aggiunta gestione prodotti;
