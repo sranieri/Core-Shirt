@@ -39,12 +39,6 @@ public class GestisciArticolo extends HttpServlet {
 		doGet(request, response);
 		ManageArticolo ma=new ManageArticolo();
 		
-		if(request.getParameter("insertNome")!="" && request.getParameter("insertCategoria")!=""&&request.getParameter("insertPrezzo")!=""&&request.getParameter("insertQuantita")!=""){
-			Articolo a=new Articolo(Integer.parseInt(request.getParameter("insertId")),request.getParameter("insertNome"),request.getParameter("insertCategoria"));
-			ma.insertArticolo(a);
-		}
-
-		
 		
 		//gestisci articoli
 		if(request.getParameter("nome")!=""){
@@ -67,14 +61,14 @@ public class GestisciArticolo extends HttpServlet {
 				System.out.println("modificato");
 			}
 		}
-		response.sendRedirect("/CoreShirt/j.jsp");
-		if(request.getParameter("rimuoviArticolo")!=""){
-			if(ma.deleteArticolo(request.getParameter("id"))){
+		if(request.getParameter("rimuoviArticolo")!=null){
+			if(ma.deleteArticolo(Integer.parseInt(request.getParameter("rimuoviArticolo")))){
 				System.out.println("modificato");
 			}
 		}
+		response.sendRedirect("j.jsp");
 
-		response.sendRedirect("/CoreShirt/j.jsp");
+
 
 	}
 

@@ -55,12 +55,12 @@ public class ManageArticolo{
 		return flag;
 	}
 	
-	public boolean deleteArticolo(String idArticolo){
+	public boolean deleteArticolo(int idArticolo){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("delete from articolo where idarticolo=?");
-			ps.setInt(1,Integer.parseInt(idArticolo));
+			ps.setInt(1,idArticolo);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();

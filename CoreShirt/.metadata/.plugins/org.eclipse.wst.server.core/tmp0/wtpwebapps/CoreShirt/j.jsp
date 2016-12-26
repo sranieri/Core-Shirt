@@ -75,7 +75,7 @@
     <div id="corpo" align="center">
     	<br>
     	<h3>Inserisci Articolo</h3>
-		<form name="InsertArticolo"   action="GestisciArticolo" method="post">
+		<form name="InsertArticolo"   action="ServletInsertArticolo" method="post">
 			
 			id<br>
 			<input type="text" name="insertId"><br>
@@ -86,7 +86,7 @@
 			Prezzo<br>
 			<input type="text" name="insertPrezzo"><br>
 			Quantita<br>
-			<input type="text" name="quantita"><br>
+			<input type="text" name="insertQuantita"><br>
 			<br><input type="submit"  value="Inserisci Articolo">
 		</form>
 
@@ -125,15 +125,13 @@ for(int i=0;i<articoli.size();i++){ %>
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){%>
 					<input type="hidden" name="id" value="<%=rs.getInt("idarticolo")%>">
-				<input type="text" name="nome" value="<%=rs.getString("nome")%>"><br><br>
-
+					Id<input type="text" name="id" value="<%=rs.getInt("idarticolo")%>" readonly><br><br>
 				Nome<input type="text" name="nome" value="<%=rs.getString("nome")%>"><br><br>
-				
 				Categoria<input type="text" name="categoria" value="<%=rs.getString("categoria")%>"><br><br>
 				Prezzo<input type="text" name="prezzo" value="<%=rs.getDouble("prezzo")%>"><br><br>
 				Quantità<input type="text" name="quantita" value="<%=rs.getString("quantita")%>"><br><br>
-				<input type="submit" onclick="GestisciArticolo" value="Modifica Articolo">
-				<button type="submit" name="rimuoviArticolo" onclick="GestisciArticolo" value="<%=rs.getInt("idarticolo")%>">Rimuovi Articolo</button>
+				<input type="submit" value="Modifica Articolo" onclick="GestisciArticolo">
+				<button type="submit" name="rimuoviArticolo" value="<%=rs.getInt("idarticolo")%>" onclick="GestisciArticolo">Elimina Articolo</button>
 				
 				
 

@@ -39,8 +39,8 @@ public class ServletInsertArticolo extends HttpServlet {
 		doGet(request, response);
 		
 		ManageArticolo ma=new ManageArticolo();
-		if(request.getParameter("idArticolo")!=""&&request.getParameter("nome")!=""&&request.getParameter("categoria")!=""){
-			Articolo a=new Articolo(Integer.parseInt(request.getParameter("idArticolo")),request.getParameter("nome"),Double.parseDouble(request.getParameter("prezzo")),Integer.parseInt(request.getParameter("quantita")),request.getParameter("categoria"));
+		if(request.getParameter("insertId")!=""&&request.getParameter("insertNome")!=""&&request.getParameter("insertCategoria")!=""&&request.getParameter("insertPrezzo")!=""&&request.getParameter("insertQuantita")!=""){
+			Articolo a=new Articolo(Integer.parseInt(request.getParameter("insertId")),request.getParameter("insertNome"),Double.parseDouble(request.getParameter("insertPrezzo")),Integer.parseInt(request.getParameter("insertQuantita")),request.getParameter("insertCategoria"));
 			if(ma.insertArticolo(a)) System.out.println("Inserimento effettuato");
 			else System.out.println("Inserimento non effettuato");
 		}

@@ -80,11 +80,7 @@ public class GestisciDipendente extends HttpServlet {
 				System.out.println("modificato");
 			}
 		}
-		if(request.getParameter("rimuoviDipendente")!=""){
-			if(md.deleteDipendente(Integer.parseInt(request.getParameter("rimuoviDipendente")))){
-				System.out.println("modificato");
-			}
-		}
+
 
 		
 		response.sendRedirect("GestioneDipendenti.jsp");
