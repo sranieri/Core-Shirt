@@ -43,6 +43,8 @@ public class ServletInsertArticolo extends HttpServlet {
 			Articolo a=new Articolo(Integer.parseInt(request.getParameter("insertId")),request.getParameter("insertNome"),Double.parseDouble(request.getParameter("insertPrezzo")),Integer.parseInt(request.getParameter("insertQuantita")),request.getParameter("insertCategoria"));
 			if(ma.insertArticolo(a)) System.out.println("Inserimento effettuato");
 			else System.out.println("Inserimento non effettuato");
+			response.sendRedirect("GestioneArticoli.jsp");
+
 		}
 	}
 

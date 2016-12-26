@@ -6,11 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Articolo;
 
 /**
  * Servlet implementation class GestisciArticolo
  */
-@WebServlet("/GestisciArticolo")
+@WebServlet(name="GestisciArticolo",urlPatterns={"/GestisciArticolo"})
 public class GestisciArticolo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,8 +39,8 @@ public class GestisciArticolo extends HttpServlet {
 		doGet(request, response);
 		ManageArticolo ma=new ManageArticolo();
 		
-		//elimina dipendente
-				
+		
+		//gestisci articoli
 		if(request.getParameter("nome")!=""){
 			if(ma.updateNome(request.getParameter("id"),request.getParameter("nome"))){
 				System.out.println("modificato");
@@ -51,7 +52,7 @@ public class GestisciArticolo extends HttpServlet {
 			}
 		}
 		if(request.getParameter("prezzo")!=""){
-			if(ma.updatePrezzo(request.getParameter("id"),Double.parseDouble(request.getParameter("prezzo")))){
+			if(ma.updatePrezzo(request.getParameter("id"),request.getParameter("prezzo"))){
 				System.out.println("modificato");
 			}
 		}
@@ -60,14 +61,14 @@ public class GestisciArticolo extends HttpServlet {
 				System.out.println("modificato");
 			}
 		}
-		if(request.getParameter("rimuoviArticolo")!=""){
-			if(md.deleteDipendente(Integer.parseInt(request.getParameter("rimuoviDipendente")))){
+		if(request.getParameter("rimuoviArticolo")!=null){
+			if(ma.deleteArticolo(Integer.parseInt(request.getParameter("rimuoviArticolo")))){
 				System.out.println("modificato");
 			}
 		}
+		response.sendRedirect("j.jsp");
 
-		
-		response.sendRedirect("GestioneDipendenti.jsp");
+
 
 	}
 

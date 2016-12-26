@@ -243,3 +243,5 @@
 0:0:0:0:0:0:0:1 - - [26/Dec/2016:18:05:44 +0100] "GET /CoreShirt/Immagini/sprite0.png HTTP/1.1" 200 165997
 0:0:0:0:0:0:0:1 - - [26/Dec/2016:18:05:58 +0100] "GET /CoreShirt/j.jsp?idArticolo=11 HTTP/1.1" 200 6106
 0:0:0:0:0:0:0:1 - - [26/Dec/2016:18:05:58 +0100] "GET /CoreShirt/Immagini/sprite0.png HTTP/1.1" 200 165997
+127.0.0.1 - - [26/Dec/2016:18:10:56 +0100] "GET / HTTP/1.1" 404 986
+0:0:0:0:0:0:0:1 - - [26/Dec/2016:18:11:01 +0100] "GET /CoreShirt/GestioneArticoli.jsp HTTP/1.1" 200 5494

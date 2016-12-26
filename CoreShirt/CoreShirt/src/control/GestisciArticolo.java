@@ -66,7 +66,7 @@ public class GestisciArticolo extends HttpServlet {
 				System.out.println("modificato");
 			}
 		}
-		response.sendRedirect("j.jsp");
+		response.sendRedirect("GestioneArticoli.jsp");
 
 
 
