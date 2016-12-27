@@ -24,6 +24,7 @@ ul#Lista {
     padding: 5px 12px; 
     margin-right: -6px;
     border-left: 2px solid black;
+    margin-bottom: -0.5px;
     }
      #Lista li:first-child {
     border-left: none;
@@ -81,5 +82,29 @@ ul#Lista {
 	
 #form{
 	font-size: 18px;
-	display: inline-block;
+	text-align: center;
+}
+#nome{
+	margin-left: 40px;
+}
+#cognome{
+	margin-left: 15.5px;
+}
+#fiscale{
+	margin-right:30px;
+}
+#stipendio{
+	margin-left: 8.6px;
+}
+#tipo{
+	margin-left: 12px;
+}
+#utente{
+	margin-left: 6px;
+}
+#pssw{
+	margin-left: 11.9px;
+}
+#submit{
+	margin-right:-167px;
 }

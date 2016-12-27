@@ -77,24 +77,24 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="form">
 <form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
-	Nome<br>
-	<input type="text" name="nome"><br>
-	Cognome<br>
-	<input type="text" name="cognome"><br>
-	Codice Fiscale <br>
-	<input type="text" name="codiceFiscale"><br>
-	Stipendio <br>
-	<input type="text" name="stipendio"><br>
-	Tipo<br>
-	<select name="tipo">
-       <option value="Magazzino" selected>Magazziniere</option>
-       <option value="Contabilita" selected>Contabile</option>
+	Nome
+	<input id="nome" type="text" name="nome"><br>
+	Cognome
+	<input id="cognome" type="text" name="cognome"><br>
+	Codice Fiscale
+	<input id="fiscale" type="text" name="codiceFiscale"><br>
+	Stipendio 
+	<input id="stipendio" type="text" name="stipendio"><br>
+	Tipo
+	<select id="tipo" name="tipo">
+       <option  value="Magazzino" selected>Magazziniere</option>
+       <option  value="Contabilita" selected>Contabile</option>
        </select><br>
-	Username<br>
-	<input type="text" name="username"><br>
-	Password<br>
-	<input type="text" name="password"><br>
-	<br><button type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
+	Username
+	<input id="utente"  type="text" name="username"><br>
+	Password
+	<input id="pssw" type="text" name="password"><br>
+	<br><button id="submit" type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
 </form>
 </div>
 <br>
