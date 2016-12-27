@@ -1,5 +1,4 @@
-25/12/2016
-Aggiunta Gestione Dipendenti;
-Aggiunta script ajax per richieste asincrone nella sezione gestione dipendenti;
-Aggiunta script js per convalidazione campi input del form inserisci dipendente;
-Aggiunta gestione prodotti;
+27/12/2016
+Aggiunta Gestione Dipendenti e relativi script Ajax per la comunicazione asincrona e script js per la convalidazione dei campi di input del form di inserimento dipendente( si ha la possibilità di inserire un nuovo dipendente,eliminare un dipendente e modificare i relativi attributi.
+Aggiunta Gestione Articoli e relativi script Ajax(si ha la possibilità di inserire un nuovo articoli,eliminarne uno presente nel db e modifica gli attributi di quelli esistenti).
+Aggiunta Gestione Ordine(si ha la possibilità di visualizzare tutti gli ordini effettuati dal sito, di cambiare il loro stato (evaso/non evaso) e di eliminare un ordine)
