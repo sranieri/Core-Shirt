@@ -72,7 +72,10 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
     </nav>
     </div>
 
+<div id="sezione"> 
+<div id="sezione2"> Aggiungi Dipendente</div></div>
 
+<div id="form">
 <form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
 	Nome<br>
 	<input type="text" name="nome"><br>
@@ -93,6 +96,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 	<input type="text" name="password"><br>
 	<br><button type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
 </form>
+</div>
 <br>
 </article>
 </article>
