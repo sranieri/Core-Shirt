@@ -1,38 +1,34 @@
 package model;
-import java.util.ArrayList;
-import java.util.Date;
+
+
 public class Ordine {
 	
-	String idOrdine,stato,idCliente,indirizzoConsegna,metodoPagamento;
-	ArrayList<Articolo> listaArticoli;
+	String stato,indirizzoSpedizione,metodoP,pagamento;
 	double totale;
-	Date data;
+	String data,cap;
+	int idOrdine,idCliente;
 	
-	public Ordine(String idOrdine,double totale,String stato,String idCliente,String indirizzoConsegna,String metodoPagamento,Date data){
-		this.idOrdine=idOrdine;
-		//this.listaArticoli=listaArticoli;
-		this.totale=totale;
-		this.stato=stato;
-		this.idCliente=idCliente;
-		this.indirizzoConsegna=indirizzoConsegna;
-		this.metodoPagamento=metodoPagamento;
-		this.data=data;
+	public Ordine(){
+		
 	}
 	
-	public String getIdOrdine(){
+	public int getIdOrdine(){
 		return idOrdine;
 	}
 	
-	public void setIdOrdine(String idOrdine){
+	public void setIdOrdine(int idOrdine){
 		this.idOrdine=idOrdine;
-	}
-	
-	public ArrayList<Articolo> getListaArticoli(){
-		return listaArticoli;
 	}
 	
 	public double getTotale(){
 		return totale;
+	}
+	public String getIndirizzoSpedizione(){
+		return indirizzoSpedizione;
+	}
+	
+	public void setIndirizzoSpedizione(String indirizzoSpedizione){
+		this.indirizzoSpedizione=indirizzoSpedizione;
 	}
 	
 	public void setTotale(double totale){
@@ -47,28 +43,44 @@ public class Ordine {
 		this.stato=stato;
 	}
 	
-	public String getIdCliente(){
+	public int getIdCliente(){
 		return idCliente;
 	}
 	
-	public void setIdCliente(String idCliente){
+	public void setIdCliente(int idCliente){
 		this.idCliente=idCliente;
 	}
 	
-	public String getMetodoPagamento(){
-		return metodoPagamento;
+	public String getMetodoP(){
+		return metodoP;
 	}
 	
-	public String setMetodoPagamento(String metodoPagamento){
-		return metodoPagamento;
+	public void setMetodoP(String metodoP){
+		this.metodoP=metodoP;
 	}
 	
-	public Date getData(){
+	public void setCap(String cap){
+		this.cap=cap;
+	}
+	
+	public String getCap(){
+		return cap;
+	}
+	
+	public String getData(){
 		return data;
 	}
 	
-	public void setData(Date data){
+	public void setData(String data){
 		this.data=data;
+	}
+	
+	public void setPagamento(String pagamento){
+		this.pagamento=pagamento;
+	}
+	
+	public String getPagamento(){
+		return pagamento;
 	}
 
 }

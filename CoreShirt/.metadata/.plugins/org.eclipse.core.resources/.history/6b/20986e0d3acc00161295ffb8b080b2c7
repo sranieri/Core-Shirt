@@ -1,0 +1,76 @@
+package model;
+public class Ordine {
+	
+	String stato,indirizzoSpedizione,metodoPa;
+	double totale;
+	String data,cap;
+	int idOrdine,idCliente;
+	
+	public Ordine(int idOrdine,int idCliente,String stato,String data,String indirizzoSpedizione,double totale,String cap,String metodoP,String pagamento){
+		this.idOrdine=idOrdine;
+		this.idCliente=idCliente;
+		this.stato=stato;
+		this.data=data;
+		this.indirizzoSpedizione=indirizzoSpedizione;
+		this.totale=totale;
+		this.cap=cap;
+		this.metodoP=metodoP;
+		
+	}
+	
+	public int getIdOrdine(){
+		return idOrdine;
+	}
+	
+	public void setIdOrdine(int idOrdine){
+		this.idOrdine=idOrdine;
+	}
+	
+	public double getTotale(){
+		return totale;
+	}
+	public String getIndirizzoSpedizione(){
+		return indirizzoSpedizione;
+	}
+	
+	public void setTotale(double totale){
+		this.totale=totale;
+	}
+	
+	public String getStato(){
+		return stato;
+	}
+	
+	public void setStato(String stato){
+		this.stato=stato;
+	}
+	
+	public int getIdCliente(){
+		return idCliente;
+	}
+	
+	public void setIdCliente(int idCliente){
+		this.idCliente=idCliente;
+	}
+	
+	public String getMetodoPagamento(){
+		return metodoPagamento;
+	}
+	
+	public String setMetodoPagamento(String metodoPagamento){
+		return metodoPagamento;
+	}
+	
+	public String getData(){
+		return data;
+	}
+	
+	public void setData(String data){
+		this.data=data;
+	}
+	
+	public String setPagamento(String pagamento){
+		this.p
+	}
+
+}

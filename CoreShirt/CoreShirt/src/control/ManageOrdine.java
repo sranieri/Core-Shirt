@@ -8,62 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.Ordine;
+
 public class ManageOrdine {
-	
-	String idOrdine,stato,idCliente,indirizzoConsegna,metodoPagamento;
-	double totale;
+
 	Date data;
 	ArrayList<Ordine> ordini;
 
 	public ManageOrdine(){}
-	
-	public String getIdOrdine(){
-		return idOrdine;
-	}
-	
-	public void setIdOrdine(String idOrdine){
-		this.idOrdine=idOrdine;
-	}
-	
-	public String getStato(){
-		return stato;
-	}
-	
-	public void setStato(String stato){
-		this.stato=stato;
-	}
-	
-	public String getIdCliente(){
-		return idCliente;
-	}
-	
-	public void setIdCliente(String idCliente){
-		this.idCliente=idCliente;
-	}
-	
-	public String getIndirizzoConsegna(){
-		return indirizzoConsegna;
-	}
-	
-	public void setIndirizzoConsegna(String indirizzoConsegna){
-		this.indirizzoConsegna=indirizzoConsegna;
-	}
-	
-	public String getMetodoPagamento(){
-		return metodoPagamento;
-	}
-	
-	public void setMetodoPagamento(String metodoPagamento){
-		this.metodoPagamento=metodoPagamento;
-	}
-	
-	public Date getDate(){
-		return data;
-	}
-	
-	public void setDate(Date data){
-		this.data=data;
-	}
 	
 	public ArrayList<Ordine> getOrdini(){
 		DbConnect.connect();
@@ -72,7 +23,16 @@ public class ManageOrdine {
 			PreparedStatement ps=DbConnect.con.prepareStatement("select * from ordine");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
-				Ordine o=new Ordine(rs.getString("idOrdine"),rs.getDouble("totale"),rs.getString("stato"),rs.getString("idCliente"),rs.getString("indirizzoConsegna"),rs.getString("metodoPagamento"),rs.getDate("data"));
+				Ordine o=new Ordine();
+				o.setIdOrdine(rs.getInt("idordine"));
+				o.setIdCliente(rs.getInt("idcliente"));
+				o.setStato(rs.getString("stato"));
+				o.setData(rs.getString("data"));
+				o.setIndirizzoSpedizione(rs.getString("indirizzoSpedizione"));
+				o.setTotale(rs.getDouble("totale"));
+				o.setCap(rs.getString("CAP"));
+				o.setMetodoP(rs.getString("metodoP"));
+				o.setPagamento(rs.getString("pagamento"));
 				ordini.add(o);
 			}
 			ps.close();
@@ -85,7 +45,7 @@ public class ManageOrdine {
 	}
 	
 	
-	public boolean insertOrdine(){
+/*	public boolean insertOrdine(){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
@@ -106,13 +66,13 @@ public class ManageOrdine {
 		DbConnect.close();
 		return flag;
 	}
-	
-	public boolean deleteOrdine(){
+	*/
+	public boolean deleteOrdine(String idOrdine){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("delete from ordine where id=?");
-			ps.setString(1,idOrdine);
+			PreparedStatement ps=DbConnect.con.prepareStatement("delete from ordine where idordine=?");
+			ps.setInt(1,Integer.parseInt(idOrdine));
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -123,13 +83,13 @@ public class ManageOrdine {
 		return flag;
 	}
 	
-	public boolean updateIdCliente(){
+	public boolean updateIdCliente(int idOrdine,int idCliente){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set idCliente=? where id=?");
-			ps.setString(1,idCliente);
-			ps.setString(2,idOrdine);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set idCliente=? where idordine=?");
+			ps.setInt(1,idCliente);
+			ps.setInt(2,idOrdine);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -140,13 +100,13 @@ public class ManageOrdine {
 		return flag;
 	}
 	
-	public boolean updateIndirizzoConsegna(){
+	public boolean updateIndirizzoConsegna(int idOrdine,String indirizzoConsegna){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set indirizzoConsegna=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update articolo set indirizzoConsegna=? where idordine=?");
 			ps.setString(1,indirizzoConsegna);
-			ps.setString(2,idOrdine);
+			ps.setInt(2,idOrdine);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -157,13 +117,13 @@ public class ManageOrdine {
 		return flag;
 	}
 	
-	public boolean updateTotale(){
+	public boolean updateTotale(int idOrdine,double totale){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set totale=? where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set totale=? where idordine=?");
 			ps.setDouble(1,totale);
-			ps.setString(2,idOrdine);
+			ps.setInt(2,idOrdine);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -174,13 +134,30 @@ public class ManageOrdine {
 		return flag;
 	}
 	
-	public boolean updateMetodoPagamento(){
+	public boolean updateMetodoPagamento(int idOrdine,String metodoP){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set metodoPagamento=? where id=?");
-			ps.setString(1,metodoPagamento);
-			ps.setString(2,idOrdine);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set metodoP=? where idordine=?");
+			ps.setString(1,metodoP);
+			ps.setInt(2,idOrdine);
+			if(ps.executeUpdate()>0) flag=true;
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public boolean updateStato(String idOrdine,String stato){
+		DbConnect.connect();
+		boolean flag=false;
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set stato=? where idordine=?");
+			ps.setString(1,stato);
+			ps.setInt(2,Integer.parseInt(idOrdine));
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
