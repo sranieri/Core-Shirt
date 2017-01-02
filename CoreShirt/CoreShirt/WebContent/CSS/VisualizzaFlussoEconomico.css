@@ -103,16 +103,10 @@ div.box
     width:191px !important;  width /**/:200px;
     height:190px !important; height /**/: 200px;
     padding: 4px;
-    
-    border:1px solid #000000; border-right:0 solid;
-    background:url(gradient.png) repeat-x fixed top left;
+    border:1px solid #000000; 
     overflow:auto
-   
 }
 div.box-inner
 { 
-    height: 200px;
     overflow:auto;
-    margin:25px 24px 0; 
-    padding-right:2px
 }

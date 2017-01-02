@@ -63,20 +63,20 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Aggiungi Dipendente</a></li>
-            <li><a href="./?action=Donna">Rimuovi Dipendente</a> </li>
-            <li><a href="./About">Modifica Stipendio</a></li>
-            <li><a href="./Help">Visualizza Flusso Economico</a></li>   
+            <li><a href="./HomeDipendenti.jsp">Home</a> </li>
+            <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
+            <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
+            <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
+            <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
         </ul>
-    </nav>
+        </nav>
     </div>
 
 <div id="sezione"> 
 <div id="sezione2"> Aggiungi Dipendente</div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
+<form name="InsertDipendente" action="ServletInserisciDipendente" method="post" onsubmit="return validateForm()">
 	<label for="Nome">Nome</label>
 	<input id="nome" type="text" name="nome"><br>
 	<label for="Cognome">Cognome</label>

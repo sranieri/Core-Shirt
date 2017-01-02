@@ -21,7 +21,7 @@
     </article>
 
 <div class="login">
-<form action="./?action=login" method="post" class="login"> 
+<form action="Login" method="post" class="login"> 
 <fieldset class="login_fieldset">
      <legend>Login</legend>
      <label for="username">Login</label>

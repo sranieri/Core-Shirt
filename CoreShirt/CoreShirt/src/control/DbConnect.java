@@ -9,7 +9,7 @@ public class  DbConnect {
 	public static void connect(){
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con=DriverManager.getConnection(url,"root","kalibandulu");
+			con=DriverManager.getConnection(url,"root","Ab03051996?");
 			System.out.println("Connessione effettuata");
 		}catch(Exception e){
 			System.out.println("Connessione fallita");

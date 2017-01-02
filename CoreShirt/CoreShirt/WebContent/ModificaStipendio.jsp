@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
+%>
+ <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -63,11 +66,11 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Aggiungi Dipendente</a></li>
-            <li><a href="./?action=Donna">Rimuovi Dipendente</a> </li>
-            <li><a href="./About">Modifica Stipendio</a></li>
-            <li><a href="./Help">Visualizza Flusso Economico</a></li>   
+            <li><a href="./HomeDipendenti.jsp">Home</a> </li>
+            <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
+            <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
+            <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
+            <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
         </ul>
     </nav>
     </div>
@@ -76,14 +79,22 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2">Modifica Stipendio</div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
+<form name="ModificaStipendio" action="GestisciDipendente" method="post">
      
 	Seleziona Dipendente
-	<select id="tipo" name="tipo">
+	<select id="dipendente" name="dip">
+	<%
+       Iterator<?> it1=d.iterator();
+          while(it1.hasNext()){
+                  Dipendente bean = (Dipendente) it1.next();%>
+            <option value="<%=bean.getId()%>">
+               <%=bean.getNome()+" "+bean.getCognome()%>
+            </option>
+         <%}%>
      </select><br>
 	Inserire lo stipendio
 	<input id="stipendio" type="text" name="stipendio"><br>
-	<br><button id="submit" type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
+	<br><button id="submit" type="submit">Modifica</button>
 </form>
 </div>
 <br>

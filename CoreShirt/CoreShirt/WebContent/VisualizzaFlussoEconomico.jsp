@@ -11,8 +11,7 @@
 <link rel="icon" href="./Immagini/sprite0.png" />
 <link rel="stylesheet" href="./CSS/base.css" type="text/css">
 <link rel="stylesheet" href="./CSS/home.css" type="text/css">
-<link rel="stylesheet" href="./CSS/VisualizzaFlussoEconomico.css"
-	type="text/css">
+<link rel="stylesheet" href="./CSS/VisualizzaFlussoEconomico.css" type="text/css">
 <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="it-IT" />
@@ -67,11 +66,11 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 					<div>
 						<nav>
 							<ul id="Lista">
-								<li><a href="./">Home</a></li>
-								<li><a href="./?action=Uomo">Aggiungi Dipendente</a></li>
-								<li><a href="./?action=Donna">Rimuovi Dipendente</a></li>
-								<li><a href="./About">Modifica Stipendio</a></li>
-								<li><a href="./Help">Visualizza Flusso Economico</a></li>
+								<li><a href="./HomeDipendenti.jsp">Home</a> </li>
+                                <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
+            					<li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
+            					<li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
+            					<li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -90,6 +89,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 							<tr>
 								<td><div class="box">
 										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
+										<div class="box-inner">il contenuto qui</div>
 									</div></td>
 									<td>                          </td>
 								<td><div class="box">
@@ -98,7 +103,6 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 						</table>
 					</div>
 	</div>
-	<br>
 
 	<footer>
 		<div class="container">

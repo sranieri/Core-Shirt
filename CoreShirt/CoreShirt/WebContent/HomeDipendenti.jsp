@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
-<%
-  ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
-  Dipendente dip=(Dipendente) session.getAttribute("dipendente");
-%>
- <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -14,38 +10,54 @@
     <link rel="icon" href="./Immagini/sprite0.png" />
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/RimuoviDipendente.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/HomeDip.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
-    $(document).ready(function(){
-    	$('.item').change(function(){
-    		var num=$('.item').val();
-    		$.ajax({
-    			type:"get",
-    			url:"GestisciDipendente?dettagli="+num,
-    			success:function(result){
-    				$('#Dettagli').load("./RimuoviDipendente.jsp #Dettagli");
-    			}
-    		});
-    	})
-    })
+       $(document).ready(function() {
+		  $(".element").mouseover(function() {
+			 this.animate({
+				height : "+=20px",
+				width : "+=20px"
+				});
+			});
+		   $(".btn2").click(function() {
+			  $("#p1").animate({
+				height : "-=20px",
+				width : "-=20px"
+				});
+			});
+		});
 	</script>
 </head>
 <body>
+
+
+<div>     
+    <article id="articolo" >
+		<script src="checkForm.js"></script>
+
+<%!/*
+ManageDipendente md=new ManageDipendente();
+ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
+%>
+
+<article>
 <div id="wrapper">
     <article id="articolo1">
-    <div id="lista">
+    
     <a href="./"><div id="banner"> <img class="Banner" src="Immagini/prova.png"> 
-          <img class="core" src="Immagini/core2.png"></a>
-        </div>
-   </article>
-</div>
-<article id="ArticleInserisciDipendente">
+          <img class="core" src="Immagini/core2.png"></div></a>
+ 
+     </article>
+       </div>
+        
+    <article id="ArticleInserisciDipendente">
     <div id="Amministrazione">
           Area Amministrazione
     </div>
@@ -59,37 +71,26 @@
             <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
         </ul>
     </nav>
-</div>
-<div id="sezione"> 
-<div id="sezione2"> Rimuovi Dipendente</div></div>
-<div id="form">
-<form  action="GestisciDipendente" method="post">
-	<select name="delete" class="item">
-    <%
-       Iterator<?> it1=d.iterator();
-          while(it1.hasNext()){
-                  Dipendente bean = (Dipendente) it1.next();%>
-            <option value="<%=bean.getId()%>">
-               <%=bean.getNome()+" "+bean.getCognome()%>
-            </option>
-         <%}%>
-	</select> 
-	<button type="submit">Rimuovi</button><br><br>
-	</form>
-	<div id="Dettagli">
-	<%if(dip!=null) {%>
-	<div> Nome : <%=dip.getNome()%></div>
-	<div>Cognome : <%=dip.getCognome()%></div>
- 	<div>Cf : <%=dip.getCodiceFiscale()%></div>
-	<div>Stipendio : <%=dip.getStipendio()%></div>
-	<div>Tipo : <%=dip.getTipo()%></div>
-	<div>Username : <%=dip.getUsername()%></div>
-	<div>Password : <%=dip.getPassword()%></div>
-    <%} %>
     </div>
-   </div>
-    </article>
-    </div>  
+    <div id="containerB">
+    <div id="containerB1">
+    <div id="aggiungi">Aggiungi Dipendente</div>
+    <div id="rimuovi">Rimuovi Dipendente</div>
+    </div>
+    <div id="containerB2">
+    <div id="modifica">Modifica Stipendio</div>
+    <div id="visualizza">Visualizza Flusso economico</div>
+    </div>
+    </div>
+    <form action="Login" method="post">
+      <input type="hidden" name="logout" value="true">
+      <button id="logout" type="submit">Logout</button>
+    </form>
+</article>
+</article>
+</article>
+</div>
+
 
         <footer>
         <div class="container">
