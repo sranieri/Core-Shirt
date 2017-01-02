@@ -30,7 +30,7 @@ function validateForm(){
 	}
 	
 	var x=document.forms["InsertDipendente"]["username"].value;
-	if(!x.match(/^[A-Za-z ]{3,30}$/)){
+	if(!x.match(/^[A-Za-z0-9]{3,30}$/)){
 		alert("Inserire un username");
 		return false;
 	}

@@ -37,18 +37,30 @@ public class ManageCarrello {
 		    preparedStatement.setInt(2,i);
 		    preparedStatement.execute();
 		    for(TShirt v:cart.getProducts()){
-		    	String select="select idtshirt from tshirt where articolo="+v.getidArticolo()+" and sesso='"+v.getSesso()+"' and taglia='"+v.getTaglia()+"' and colore='"+v.getColore()+"';";
+		    	String select="select idtshirt,quantita from tshirt where articolo="+v.getidArticolo()+" and sesso='"+v.getSesso()+"' and taglia='"+v.getTaglia()+"' and colore='"+v.getColore()+"';";
 		    	preparedStatement = connection.prepareStatement(select);
 		    	ResultSet rs=preparedStatement.executeQuery();
 		    	String id="";
+		    	int quantita=0;
 		    	while(rs.next()){
 		    		id=rs.getString(1);
+		    		quantita=rs.getInt(2);
 		    	}
 		    	String insert="insert into composizioneordine(idordine,idtshirt,pezzi) values(?,?,?);";
 		    	preparedStatement = connection.prepareStatement(insert);
 		    	preparedStatement.setInt(1,i);
 		    	preparedStatement.setInt(2,Integer.parseInt(id));
 		    	preparedStatement.setInt(3,v.getquantita());
+		    	preparedStatement.execute();
+		    	String update="update tshirt set quantita=? where idtshirt=?";
+		    	preparedStatement = connection.prepareStatement(update);
+		    	preparedStatement.setInt(1,quantita-v.getquantita());
+		    	preparedStatement.setInt(2,Integer.parseInt(id));
+		    	preparedStatement.execute();
+		    	update="update articolo set quantita=? where idarticolo=?";
+		    	preparedStatement = connection.prepareStatement(update);
+		    	preparedStatement.setInt(1,(new ManageArticolo().getQuantita(v.getidArticolo()))-v.getquantita());
+		    	preparedStatement.setInt(2,v.getidArticolo());
 		    	preparedStatement.execute();
 		    }
 		    cart.delete();

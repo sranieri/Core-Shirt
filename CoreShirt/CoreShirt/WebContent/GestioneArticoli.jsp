@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
-    
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
@@ -77,18 +75,23 @@
     <div id="corpo" align="center">
     	<br>
     	<h3>Inserisci Articolo</h3>
-		<form name="InsertArticolo"   action="ServletInsertArticolo" method="post">
-			
-			id<br>
-			<input type="text" name="insertId"><br>
+		<form name="InsertArticolo" method="post" enctype="multipart/form-data" action="ServletInsertArticolo">
 			Nome<br>
-			<input type="text" name="insertNome"><br>
+			<input type="text" name="insertNome"/><br>
 			Categoria<br>
-			<input type="text" name="insertCategoria"><br>
+			<select name="insertCategoria">
+                             <option value="Cinema">Cinema</option>
+                             <option value="Geek">Geek</option>
+                             <option value="Divertenti">Divertenti</option>
+                             <option value="Manga">Anime e Manga</option>
+                             <option value="Comics">Comics</option>
+                             <option value="Nerd">Nerd</option>
+                           </select>
 			Prezzo<br>
-			<input type="text" name="insertPrezzo"><br>
+			<input type="text" name="insertPrezzo"/><br>
 			Quantita<br>
-			<input type="text" name="insertQuantita"><br>
+			<input type="text" name="insertQuantita"/><br>
+			<label for="upfile">Percorso file locale</label><input type="file" name="upfile" placeholder="Nome file" required></input>
 			<br><input type="submit"  value="Inserisci Articolo">
 		</form>
 
@@ -121,7 +124,7 @@ for(int i=0;i<articoli.size();i++){ %>
 	}else{
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/coreshirt","root","kalibandulu");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/coreshirt2","root","Freitag22*");
 			PreparedStatement ps=con.prepareStatement("select * from articolo where idarticolo=?");
 			ps.setInt(1,Integer.parseInt(id));
 			ResultSet rs=ps.executeQuery();

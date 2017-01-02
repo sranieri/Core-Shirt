@@ -52,7 +52,6 @@ public class ServletInserisciDipendente extends HttpServlet {
 		d.setCognome(request.getParameter("cognome"));
 		d.setCodiceFiscale(request.getParameter("codiceFiscale"));
 		d.setStipendio(Double.parseDouble(request.getParameter("stipendio")));
-		System.out.println("stipendio: "+d.getStipendio());
 		d.setTipo(request.getParameter("tipo"));
 		d.setUsername(request.getParameter("username"));
 		d.setPassword(request.getParameter("password"));
@@ -60,7 +59,7 @@ public class ServletInserisciDipendente extends HttpServlet {
 			System.out.println("ok");
 		else
 			System.out.println("no");
-		response.sendRedirect("CoreShirt/GestioneDipendenti.jsp");
+		response.sendRedirect("InserisciDipendente.jsp");
 		
 
 

@@ -82,7 +82,7 @@
 	ManageOrdine mo=new ManageOrdine();
 	ArrayList<Ordine> ordini=mo.getOrdini();
 %>
-<form  name="GestisciOrdine" action="GestisciOrdine"  method="post">
+
 <table>
 <tr>
 <th>Id Ordine</th>
@@ -96,15 +96,16 @@
 <th>Pagamento</th>
 </tr>
 <%for(int i=0;i<ordini.size();i++){%>
+<form  action="GestisciOrdine"  method="post">
 <tr>
 <td><%=ordini.get(i).getIdOrdine()%></td>
 <td><%=ordini.get(i).getIdCliente()%></td>
 <td>
-<select name="cambiaStato" onchange="document.GestisciOrdine.submit();">
+<input type="hidden" name="idOrdine" value="<%=ordini.get(i).getIdOrdine()%>" >
+<select name="cambiaStato" onchange="submit();">
 <option value="<%=ordini.get(i).getStato()%>" selected><%=ordini.get(i).getStato()%></option>
 <option value="evaso">evaso</option>
 </select>
-<input type="hidden" name="idOrdine" value="<%=ordini.get(i).getIdOrdine()%>" >
 </td>
 <td><%=ordini.get(i).getData()%></td>
 <td><%=ordini.get(i).getIndirizzoSpedizione()%></td>

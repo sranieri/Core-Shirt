@@ -31,6 +31,13 @@ public class Articolo implements Serializable {
 		categoria="";
 	}
 
+	public Articolo(String nome, double prezzo, int quantita, String categoria) {
+		this.nome = nome;
+		this.prezzo = prezzo;
+		this.quantita = quantita;
+		this.categoria = categoria;
+	}
+	
 	public int getidArticolo() {
 		return idArticolo;
 	}

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect,java.sql.*" %>
+  <%@page import="java.util.ArrayList,model.Articolo,control.ManageArticolo,control.DbConnect" %>
  
 <!DOCTYPE html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Articolo,model.Cart"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Articolo,model.Cart,java.sql.SQLException"%>
 <html lang="it">
 <head>
     <script src="Script/jquery.js"></script>
@@ -17,9 +17,6 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt Gestionale: Gestione Dipendenti</title>
-    <script src="ajaxDipendenti.js"></script>
-    <script src="checkForm.js"></script>
-    
     <script>
        $(document).ready(function() {
 		  $(".element").mouseover(function() {
@@ -38,8 +35,6 @@
 	</script>
 </head>
 <body>
-    <script src="checkForm.js"></script>
-
 <div id="wrapper">
     <article id="articolo1">
     <div id="lista">
@@ -76,88 +71,28 @@
     </article>
     <div id="corpo" align="center">
     <%!
-		ManageDipendente md=new ManageDipendente();
-		ArrayList<Dipendente> dipendenti=md.getDipendenti(); 
-	%> 		
-    	<br>
-    	<h3>Inserisci Dipendente</h3>
-		<form name="InsertDipendente"  onsubmit="return validateForm()" action="ServletInserisciDipendente" method="post" onsubmit="return validateForm()">
-			Nome<br>
-			<input type="text" name="nome"><br>
-			Cognome<br>
-			<input type="text" name="cognome"><br>
-			Codice Fiscale <br>
-			<input type="text" name="codiceFiscale"><br>
-			Stipendio <br>
-			<input type="text" name="stipendio"><br>
-			Tipo<br>
-			<input type="text" name="tipo"><br>
-			Username<br>
-			<input type="text" name="username"><br>
-			Password<br>
-			<input type="text" name="password"><br>
-			<br><input type="submit"  onsubmit="return validateForm()" value="Inserisci Dipendente">
-		</form>
-
-<h3>Modifica Dipendente</h3>
-
-
-<%
-ManageDipendente md=new ManageDipendente();
-ArrayList<Dipendente> dipendenti=md.getDipendenti();
-	if(dipendenti.size()==0){
-		out.print("<b>Non ci sono dipendenti</b");
-		
-	}else{
-
-%>
-<form name="manageDipendente" >
-<select name="idDipendente">
-<%
-
-for(int i=0;i<dipendenti.size();i++){ %>
-	<option value="<%=dipendenti.get(i).getId()%>"><%=dipendenti.get(i).getId()%></option>
-	<%}%>
-</select><input type="submit" onclick="postComment()"><br><br>
+		ManageArticolo ma=new ManageArticolo();
+		ArrayList<Articolo> articoli=ma.getArticoli(); 
+        
+	%>
+    	<h3>Inserisci Articolo</h3>
+		<form name="InsertArticolo" action="ServletInsertArticolo" method="post" onsubmit="return validateForm()">
+	id Articolo<br>
+	<input type="text" name="idArticolo"><br>
+	Nome<br>
+	<input type="text" name="nome"><br>
+	Categoria<br>
+	<input type="text" name="categoria"><br>
+	Prezzo<br>
+	<input type="text" name="prezzo"><br>
+	Quantità <br>
+	<input type="text" name="quantita"><br>
+	<br><button type="submit" onclick="ServletInsertArticolo" onsubmit="return validateForm()">Inserisci</button>
 </form>
-<form action="GestisciDipendente" method="post">
-<%
-	String id=request.getParameter("idDipendente");
-	if(id=="" || id==null){
-		out.print("<b>Seleziona id</b>");
-	}else{
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/coreshirt2","root","Freitag22*");
-			PreparedStatement ps=con.prepareStatement("select * from dipendente where idDipendente=?");
-			ps.setInt(1,Integer.parseInt(id));
-			ResultSet rs=ps.executeQuery();
-			while(rs.next()){%>
-				
-					<input type="hidden" name="id" value="<%=rs.getInt("idDipendente")%>">
-				
-				Nome<input type="text" name="nome" value="<%=rs.getString("nome")%>"><br><br>
-				
-				Cognome<input type="text" name="cognome" value="<%=rs.getString("cognome")%>"><br><br>
-				CodF<input type="text" name="cf" value="<%=rs.getString("codicefiscale")%>"><br><br>
-				Stipendio<input type="text" name="stipendio" value="<%=rs.getString("stipendio")%>"><br><br>
-				Tipo<input type="text" name="tipo" value="<%=rs.getString("tipo")%>"><br><br>
-				Username<input type="text" name="username" value="<%=rs.getString("username")%>"><br><br>
-				Password<input type="text" name="password" value="<%=rs.getString("password")%>"><br><br>
-				<input type="submit" onclick="GestisciDipendente" value="Modifica dipendente">
-				<button type="submit" name="rimuoviDipendente" onclick="GestisciDipendente" value="<%=rs.getInt("idDipendente")%>">Rimuovi Dipendente</button>
-				
-				
 
-			<%}%>
-			
-		<% }catch(Exception e){
-			out.print(e);
-		}
-	}
-}
-%>
-</form>
+<h3>Inserisci Tshirt</h3><br>
+
+
         </div>
 
           <img id="loadMore" src="Immagini/arrow.png">

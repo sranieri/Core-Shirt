@@ -40,7 +40,7 @@ public class GestisciOrdine extends HttpServlet {
 		ManageOrdine mo=new ManageOrdine();
 
 		if(request.getParameter("cambiaStato")!=""){
-			if(mo.updateStato(request.getParameter("idOrdine"),request.getParameter("stato")))
+			if(mo.evadi(request.getParameter("idOrdine")))
 				System.out.println("Modificato!");
 		}
 		if(request.getParameter("eliminaOrdine")!=null){

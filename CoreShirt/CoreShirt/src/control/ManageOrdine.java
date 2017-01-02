@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import model.Fattura;
 import model.Ordine;
 
 public class ManageOrdine {
@@ -44,7 +45,33 @@ public class ManageOrdine {
 		return ordini;
 	}
 	
-	
+	public ArrayList<Ordine> getInevasi(){
+		DbConnect.connect();
+		ordini=new ArrayList<Ordine>();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from ordine where stato='inevaso'");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				Ordine o=new Ordine();
+				o.setIdOrdine(rs.getInt("idordine"));
+				o.setIdCliente(rs.getInt("idcliente"));
+				o.setStato(rs.getString("stato"));
+				o.setData(rs.getString("data"));
+				o.setIndirizzoSpedizione(rs.getString("indirizzoSpedizione"));
+				o.setTotale(rs.getDouble("totale"));
+				o.setCap(rs.getString("CAP"));
+				o.setMetodoP(rs.getString("metodoP"));
+				o.setPagamento(rs.getString("pagamento"));
+				ordini.add(o);
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return ordini;
+	}
 /*	public boolean insertOrdine(){
 		DbConnect.connect();
 		boolean flag=false;
@@ -191,5 +218,49 @@ public class ManageOrdine {
 		}
 	}
 	
-	
+	public synchronized boolean evadi(String idOrdine){
+		Ordine o=getOrdine(idOrdine);
+		new ManageFattura().insertFattura(new Fattura(idOrdine, o, o.getIndirizzoSpedizione(), o.getTotale(), new Date(), 22.0));
+		DbConnect.connect();
+		boolean flag=false;
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("update ordine set stato=? where idordine=?");
+			ps.setString(1,"evaso");
+			ps.setInt(2,Integer.parseInt(idOrdine));
+			if(ps.executeUpdate()>0) flag=true;
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	public Ordine getOrdine(String idOrdine) {
+		DbConnect.connect();
+		Ordine o=new Ordine();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from ordine where idordine=?");
+			ps.setInt(1, Integer.parseInt(idOrdine));
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				o.setIdOrdine(rs.getInt("idordine"));
+				o.setIdCliente(rs.getInt("idcliente"));
+				o.setStato(rs.getString("stato"));
+				o.setData(rs.getString("data"));
+				o.setIndirizzoSpedizione(rs.getString("indirizzoSpedizione"));
+				o.setTotale(rs.getDouble("totale"));
+				o.setCap(rs.getString("CAP"));
+				o.setMetodoP(rs.getString("metodoP"));
+				o.setPagamento(rs.getString("pagamento"));
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return o;
+	}
 }

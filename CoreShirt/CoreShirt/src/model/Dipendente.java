@@ -63,8 +63,6 @@ public class Dipendente {
 		this.username=username;
 	}
 	
-
-	
 	public String getPassword(){
 		return password;
 	}

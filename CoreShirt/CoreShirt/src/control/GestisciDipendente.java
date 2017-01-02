@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Dipendente;
+
 import javax.servlet.RequestDispatcher;
 
 /**
@@ -31,7 +33,31 @@ public class GestisciDipendente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ManageDipendente md=new ManageDipendente();
+		int id=0;
+		int dettagli=0;
+		if(request.getParameter("dettagli")!=null){
+			dettagli=Integer.parseInt(request.getParameter("dettagli"));
+			Dipendente x=md.getDipendente(dettagli);
+			request.getSession().removeAttribute("dipendente");
+			request.getSession().setAttribute("dipendente",x);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RimuoviDipendente.jsp");
+			dispatcher.forward(request, response);
+		}
+		if(request.getParameter("delete")!=null){
+			id=Integer.parseInt(request.getParameter("delete"));
+			md.deleteDipendente(id);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeDipendenti.jsp");
+			dispatcher.forward(request, response);
+		}
+		if(request.getParameter("dip")!=null){
+			int dip=Integer.parseInt(request.getParameter("dip"));
+			double stip=Double.parseDouble(request.getParameter("stipendio"));
+			md.updateStipendio(dip, stip);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeDipendenti.jsp");
+			dispatcher.forward(request, response);
+		}
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -40,10 +66,8 @@ public class GestisciDipendente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		ManageDipendente md=new ManageDipendente();
-		
 		//elimina dipendente
-				
+		/*		
 		if(request.getParameter("nome")!=""){
 			if(md.updateNome(Integer.parseInt(request.getParameter("id")),request.getParameter("nome"))){
 				System.out.println("modificato");
@@ -82,10 +106,7 @@ public class GestisciDipendente extends HttpServlet {
 		}
 
 
-		
-		response.sendRedirect("GestioneDipendenti.jsp");
-
-
+		*/
 
 	}
 }

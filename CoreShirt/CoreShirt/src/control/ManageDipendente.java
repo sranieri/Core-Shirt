@@ -200,5 +200,52 @@ public class ManageDipendente {
 		}
 		return flag;
 	}
+	
+	public Dipendente getDipendente(int id){
+		DbConnect.connect();
+		Dipendente d=new Dipendente();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from Dipendente where iddipendente=?");
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				d.setId(rs.getString("idDipendente"));
+				d.setNome(rs.getString("nome"));
+				d.setCognome(rs.getString("cognome"));
+				d.setCodiceFiscale(rs.getString("codiceFiscale"));
+				d.setStipendio(rs.getDouble("stipendio"));
+				d.setTipo(rs.getString("tipo"));
+				d.setUsername(rs.getString("username"));
+				d.setPassword(rs.getString("password"));
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return d;
+	}
+	
+	public String checkLogin(String user,String password){
+		DbConnect.connect();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select tipo from dipendente where username=? and password=?");
+			ps.setString(1,user);
+			ps.setString(2,password);
+			ResultSet rs=ps.executeQuery();
+			String tipo=null;
+			while(rs.next()){
+				tipo=rs.getString("tipo");
+			}
+			ps.close();
+			DbConnect.close();
+			return tipo;
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

@@ -23,13 +23,6 @@ public class Fattura {
 		this.idFattura=idFattura;
 	}
 	
-	public Ordine getIdOrdine(){
-		return ordine;
-	}
-	
-	public void setIdOrdine(Ordine ordine){
-		this.ordine=ordine;
-	}
 
 	public String getIndirizzoSpedizione(){
 		return indirizzoSpedizione;

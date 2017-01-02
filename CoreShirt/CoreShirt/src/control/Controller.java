@@ -31,7 +31,7 @@ public class Controller extends HttpServlet {
     private static DatabaseConnection model=new DatabaseConnection();
     private static ManageArticolo art= new ManageArticolo();
     private static int i=(new ManageOrdine()).getI();
-	private static int f=0,cambio=0;;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -153,19 +153,6 @@ public class Controller extends HttpServlet {
 					x.add(pagamento);
 					new ManageCarrello().saveCart(cart, x,i);
 					path="/Home.jsp";
-				}
-				else if(action.equalsIgnoreCase("login")){
-					String username = request.getParameter("username");
-					String password = request.getParameter("password");
-					Boolean check=checkLogin(username, password);
-					if(check){
-						request.getSession().setAttribute("adminRoles", new Boolean(true));
-						path="/Admin.jsp";
-					}
-					else{
-						request.getSession().setAttribute("adminRoles", new Boolean(false));
-						path="/login.jsp";
-					}
 				}
 				else if(action.equalsIgnoreCase("upload")){
 					String title=request.getParameter("title");

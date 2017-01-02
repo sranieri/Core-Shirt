@@ -1,54 +1,34 @@
 package control;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import model.Fattura;
+
 public class ManageFattura {
 	
-	String idFattura,idOrdine,indirizzoSpedizione,pagamento; 
-	double totale,iva;
 
 	public ManageFattura(){}
 	
-	public String getIdFattura(){
-		return idFattura;
+	public synchronized void insertFattura(Fattura f){
+		DbConnect.connect();
+		Connection connection = DbConnect.con;
+		try{
+			String insert="insert into fattura(idordine,indirizzospedizione,totale,iva) values(?,?,?,?);";
+		    PreparedStatement ps=connection.prepareStatement(insert);
+		    ps.setInt(1, f.getOrdine().getIdOrdine());
+		    ps.setString(2,f.getIndirizzoSpedizione());
+		    ps.setDouble(3, f.getTotale());
+		    ps.setString(4,""+f.getIva());
+		    if(ps.executeUpdate()>0) System.out.println("ciao");;
+		    ps.close();
+		    DbConnect.close();
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
-	
-	public void setIdFattura(String idFattura){
-		this.idFattura=idFattura;
-	}
-	
-	public String getIdOrdine(){
-		return  idOrdine;
-	}
-	
-	public void setIdOrdine(String idOrdine){
-		this.idOrdine=idOrdine;
-	}
-	
-	public String getIndirizzoSpedizione(){
-		return indirizzoSpedizione;
-	}
-	
-	public void setIndirizzoSpedizione(String indirizzoSpedizione){
-		this.indirizzoSpedizione=indirizzoSpedizione;
-	}
-	
-	public String getPagamento(){
-		return pagamento;
-	}
-	
-	public double getTotale(){
-		return totale;
-	}
-	
-	public void setTotale(double totale){
-		this.totale=totale;
-	}
-	
-	public double getIva(){
-		return iva;
-	}
-	
-	public void setIva(double iva){
-		this.iva=iva;
-	}
+
 
 }

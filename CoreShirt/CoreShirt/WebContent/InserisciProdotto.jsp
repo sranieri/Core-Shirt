@@ -10,6 +10,7 @@
     <link rel="icon" href="./Immagini/sprite0.png" />
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -17,22 +18,6 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
-    <script>
-       $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
-		});
-	</script>
 </head>
 <body>
 
@@ -67,7 +52,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./?action=Uomo">Inserisci Prodotto</a></li>
             <li><a href="./?action=Donna">Rimuovi Prodotto</a> </li>
             <li><a href="./About">Evadi Ordine </a></li>
-            <li><a href="./Help">Modifica Quantita Prodotto</a></li>   
+            <li><a href="./Help">Modifica Quantita</a></li>   
             <li><a href="./?action=Donna">Rifornimento Prodotto</a> </li>
  
         </ul>
@@ -78,27 +63,46 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Inserisci Prodotto </div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
+<form name="InsertDipendente" action="ServletInsertArticolo?" method="post" onsubmit="return validateForm()">
 	Inserisci il Nome
 	<input id="nome" type="text" name="nome"><br>
 	
 	Seleziona Categoria
-	<select id="tipo" name="tipo">
-       
+	<select id="categoria" name="categoria">
+       <option value="Cinema">Cinema</option>
+       <option value="Geek">Geek</option>
+       <option value="Divertenti">Divertenti</option>
+       <option value="Manga">Anime e Manga</option>
+       <option value="Comics">Comics</option>
+       <option value="Nerd">Nerd</option>
    </select><br>
      Iserisci il  Prezzo
 	<input id="Prezzo" type="number" cognome"><br>
 	
    Seleziona Colore
-	<select id="tipo" name="tipo">
-       
+	<select id="colore" name="colore">
+       <option value="black">Nero</option>
+       <option value="grey">Grigio</option>
+       <option value="white">Bianco</option>
+       <option value="green">Verde</option>
+       <option value="orange">Arancio</option>
+       <option value="red">Rosso</option>
+       <option value="purple">Viola</option>
+       <option value="blue">Blu</option>
    </select><br>
    Seleziona Taglia
-	<select id="tipo" name="tipo">
-       
+	<select id="taglia" name="taglia">
+       <option value="S">S</option>
+       <option value="M">M</option>
+       <option value="L">L</option>
+       <option value="XL">XL</option>
+       <option value="XXL">XXL</option>
+       <option value="3XL">3XL</option>
+       <option value="4XL">4XL</option>
+       <option value="5XL">5XL</option>
    </select><br>
 	Inserisci Quantita
-	<input id="Prezzo" type="number" cognome"><br>
+	<input id="quantita" type="number"><br>
 	
 	Immagine
 	<input type="File" name="nome">

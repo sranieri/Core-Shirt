@@ -35,24 +35,24 @@ public class ManageArticolo{
 	}
 	
 	
-	public boolean insertArticolo(Articolo a){
+	public int insertArticolo(Articolo a){
+		int id=getArticoli().size()+1;
 		DbConnect.connect();
-		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("insert into articolo values(?,?,?,?,?)");
-			ps.setInt(1,a.getidArticolo());
+			ps.setInt(1,id);
 			ps.setString(2,a.getnome());
 			ps.setString(3,a.getcategoria());
 			ps.setDouble(4,a.getprezzo());
 			ps.setInt(5,a.getquantita());
-			if(ps.executeUpdate()>0) flag=true;
+			if(ps.executeUpdate()<=0) return 0;
 			ps.close();
 		}catch(SQLException e){
 			System.out.println("Connessione Fallita");
 			e.printStackTrace();
 		}
 		DbConnect.close();
-		return flag;
+		return id;
 	}
 	
 	public boolean deleteArticolo(int idArticolo){
@@ -269,6 +269,27 @@ public class ManageArticolo{
 			}
 		}
 		return products;
+	}
+     
+	public int getQuantita(int id){
+		DbConnect.connect();
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT quantita FROM " + TABLE_NAME+" where idarticolo="+id;
+		int pezzi=0;
+		try {
+			preparedStatement = DbConnect.con.prepareStatement(selectSQL);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()){
+				pezzi=rs.getInt(1);
+			}
+			return pezzi;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			
+		}
+		return pezzi;
 	}
 
 }
