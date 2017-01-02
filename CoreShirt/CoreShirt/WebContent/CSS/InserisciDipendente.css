@@ -84,6 +84,9 @@ ul#Lista {
 	font-size: 18px;
 	text-align: center;
 }
+#form label{
+	text-align:right;
+}
 #nome{
 	margin-left: 40px;
 }

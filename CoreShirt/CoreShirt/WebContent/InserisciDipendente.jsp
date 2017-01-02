@@ -77,22 +77,22 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="form">
 <form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
-	Nome
+	<label for="Nome">Nome</label>
 	<input id="nome" type="text" name="nome"><br>
-	Cognome
+	<label for="Cognome">Cognome</label>
 	<input id="cognome" type="text" name="cognome"><br>
-	Codice Fiscale
+	<label for="Codice Fiscale">Codice Fiscale</label>
 	<input id="fiscale" type="text" name="codiceFiscale"><br>
-	Stipendio 
+	<label for="Stipendio">Stipendio</label> 
 	<input id="stipendio" type="text" name="stipendio"><br>
-	Tipo
+	<label for="Tipo">Tipo</label>
 	<select id="tipo" name="tipo">
        <option  value="Magazzino" selected>Magazziniere</option>
        <option  value="Contabilita" selected>Contabile</option>
        </select><br>
-	Username
+	<label for="Username">Username</label>
 	<input id="utente"  type="text" name="username"><br>
-	Password
+	<label for="Password">Password</label>
 	<input id="pssw" type="text" name="password"><br>
 	<br><button id="submit" type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
 </form>
