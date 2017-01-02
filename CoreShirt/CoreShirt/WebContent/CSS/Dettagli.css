@@ -95,7 +95,37 @@ input[type=radio]:not(old) + label > span{
     height: 203px;
     margin-top: -240px;
     margin-left: 60px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0)  {
+	.maglia>.design-left
+{
+    position: absolute;
+    width: 175px;
+    height: 235px;
+    margin-top: 80px;
+    margin-left: -460px;
     
+}
+.maglia>.design-right
+{
+    position: absolute;
+    width: 150px;
+    height: 203px;
+    margin-top: 100px;
+    margin-left: -205px;
+}
+	
+}
+
+@-moz-document url-prefix(){
+	.maglia>.design-left {
+	position: absolute;
+    width: 175px;
+    height: 235px;
+    margin-top: 80px;
+    margin-left: -460px;
+    }
 }
 
 .taglia:not(old):checked + label > span{
