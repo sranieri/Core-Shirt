@@ -24,6 +24,7 @@ ul#Lista {
     padding: 5px 12px; 
     margin-right: -6px;
     border-left: 2px solid black;
+    margin-bottom: -0.5px;
     }
      #Lista li:first-child {
     border-left: none;
@@ -46,15 +47,12 @@ ul#Lista {
 #Lista li a:hover{
     color: #FFFFFF
 }
-
-
-
-
 #ArticleInserisciDipendente
 {
 	border: 2px solid #191919;
 	text-align: center;
 	width: 1344px;
+	margin-left:-154px;
 	margin-bottom: 30px;
 }
 
@@ -81,5 +79,5 @@ ul#Lista {
 	
 #form{
 	font-size: 18px;
-	display: inline-block;
+	text-align: center;
 }

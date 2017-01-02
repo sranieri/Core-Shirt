@@ -65,11 +65,11 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
     <nav>    
             <ul id="Lista">
             <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Inserisci Prodotti</a></li>
-            <li><a href="./?action=Donna">Rimuovi Prodotti</a> </li>
-            <li><a href="./About">Evadi Ordini</a></li>
-            <li><a href="./Help">Modifica Quantità</a></li>   
-            <li><a href="./Help">Rifornimento Prodotti</a></li>  
+            <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
+            <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
+            <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
+            <li><a href="./ModificaQuantità.jsp">Modifica Quantità</a></li>   
+            <li><a href="./RifornimentoProdotti">Rifornimento Prodotti</a></li>  
         </ul>
     </nav>
     </div>
