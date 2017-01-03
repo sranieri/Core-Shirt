@@ -3,46 +3,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Connection;
 import model.TShirt;
 public class ManageTshirt {
 	
-	String idTshirt,sesso,taglia,colore;
-	int quantita;
 	private ArrayList<TShirt> tshirts;
-	
+	private Connection connection;
 	public ManageTshirt(){}
-	
-	public String getIdTshirt(){
-		return idTshirt;
-	}
-	
-	public void setIdTshirt(String idTshirt){
-		this.idTshirt=idTshirt;
-	}
-	
-	public String getSesso(){
-		return sesso;
-	}
-	
-	public void setSesso(String sesso){
-		this.sesso=sesso;
-	}
-	
-	public String getTaglia(){
-		return taglia;
-	}
-	
-	public void setTaglia(String taglia){
-		this.taglia=taglia;
-	}
-	
-	public String getColore(){
-		return colore;
-	}
-	
-	public void setColore(String colore){
-		this.colore=colore;
-	}
 	
 	public ArrayList<TShirt> getTshirts(){
 		DbConnect.connect();
@@ -64,16 +31,21 @@ public class ManageTshirt {
 	}
 	
 	
-	public boolean insertTshirt(){
+	public boolean insertTshirt(TShirt t){
+		String id=getIdTshirt(t.getidArticolo(),t.getSesso(), t.getTaglia(), t.getColore());
+		if(!id.equals("")){
+			return updateQuantita(id,t.getquantita());
+		}
+		else{
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("insert into tshirt values(?,?,?,?,?)");
-			ps.setString(1,idTshirt);
-			ps.setString(2,sesso);
-			ps.setString(3,taglia);
-			ps.setString(4,colore);
-			ps.setInt(5,quantita);
+			PreparedStatement ps=DbConnect.con.prepareStatement("insert into tshirt (articolo, sesso, taglia, colore, quantita) values(?,?,?,?,?)");
+			ps.setInt(1, t.getidArticolo());
+			ps.setString(2,t.getSesso());
+			ps.setString(3,t.getTaglia());
+			ps.setString(4,t.getColore());
+			ps.setInt(5,t.getquantita());
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 		}catch(SQLException e){
@@ -81,15 +53,16 @@ public class ManageTshirt {
 			e.printStackTrace();
 		}
 		DbConnect.close();
-		return flag;
+		return flag;}
 	}
 	
-	public boolean deleteTshirt(){
+	public boolean deleteTshirt(String id){
 		DbConnect.connect();
+		connection=DbConnect.con;
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("delete from tshirt where id=?");
-			ps.setString(1,idTshirt);
+			String select="delete from tshirt where idtshirt="+id+";";
+	    	PreparedStatement ps = connection.prepareStatement(select);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -100,13 +73,13 @@ public class ManageTshirt {
 		return flag;
 	}
 	
-	public boolean updateSesso(){
+	public boolean updateSesso(int idTshirt,String sesso){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("update tshirt set sesso=? where id=?");
 			ps.setString(1,sesso);
-			ps.setString(2,idTshirt);
+			ps.setInt(2,idTshirt);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -117,13 +90,13 @@ public class ManageTshirt {
 		return flag;
 	}
 	
-	public boolean updateTaglia(){
+	public boolean updateTaglia(int idTshirt,String taglia){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("update tshirt set taglia=? where id=?");
 			ps.setString(1,taglia);
-			ps.setString(2,idTshirt);
+			ps.setInt(2,idTshirt);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -134,13 +107,13 @@ public class ManageTshirt {
 		return flag;
 	}
 	
-	public boolean updateColore(){
+	public boolean updateColore(int idTshirt,String colore){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("update tshirt set colore=? where id=?");
 			ps.setString(1,colore);
-			ps.setString(2,idTshirt);
+			ps.setInt(2,idTshirt);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
 			DbConnect.close();
@@ -149,6 +122,51 @@ public class ManageTshirt {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+	
+	public boolean updateQuantita(String idTshirt,int quantita){
+		DbConnect.connect();
+		boolean flag=false;
+		try{
+			int q=0;
+			PreparedStatement ps=DbConnect.con.prepareStatement("select quantita from tshirt where idtshirt=?");
+			ps.setString(1,idTshirt);
+			ResultSet rs=ps.executeQuery();
+	    	while(rs.next()){
+	    		q=rs.getInt(1);
+	    	}
+	    	quantita=quantita+q;
+			ps=DbConnect.con.prepareStatement("update tshirt set quantita=? where idtshirt=?");
+			ps.setString(2,idTshirt);
+			ps.setInt(1,quantita);
+			if(ps.executeUpdate()>0) flag=true;
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	public String getIdTshirt(int idArticolo,String sesso,String taglia,String colore){
+		DbConnect.connect();
+        connection=DbConnect.con;
+        String id="";
+		try{
+			String select="select idtshirt from tshirt where articolo="+idArticolo+" and sesso='"+sesso+"' and taglia='"+taglia+"' and colore='"+colore+"';";
+	    	PreparedStatement preparedStatement = connection.prepareStatement(select);
+	    	ResultSet rs=preparedStatement.executeQuery();
+	    	while(rs.next()){
+	    		id=rs.getString(1);
+	    	}
+			preparedStatement.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return id;
 	}
 }
 	

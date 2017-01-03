@@ -227,6 +227,34 @@ public class ManageDipendente {
 		return d;
 	}
 	
+	public Dipendente getDipendente(String user,String password){
+		DbConnect.connect();
+		Dipendente d=new Dipendente();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from dipendente where username=? and password=?");
+			ps.setString(1,user);
+			ps.setString(2,password);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				d.setId(rs.getString("idDipendente"));
+				d.setNome(rs.getString("nome"));
+				d.setCognome(rs.getString("cognome"));
+				d.setCodiceFiscale(rs.getString("codiceFiscale"));
+				d.setStipendio(rs.getDouble("stipendio"));
+				d.setTipo(rs.getString("tipo"));
+				d.setUsername(rs.getString("username"));
+				d.setPassword(rs.getString("password"));
+			}
+			ps.close();
+			DbConnect.close();
+			return d;
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String checkLogin(String user,String password){
 		DbConnect.connect();
 		try{

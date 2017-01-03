@@ -36,8 +36,13 @@ public class ManageArticolo{
 	
 	
 	public int insertArticolo(Articolo a){
-		int id=getArticoli().size()+1;
+		ArrayList<Articolo> c=getArticoli();
+		int id=c.size()+1;
 		DbConnect.connect();
+		if(c.contains(a)){
+			System.out.println("idArticolo="+c.get(c.indexOf(a)).getidArticolo());
+			return c.get(c.indexOf(a)).getidArticolo();
+		}
 		try{
 			PreparedStatement ps=DbConnect.con.prepareStatement("insert into articolo values(?,?,?,?,?)");
 			ps.setInt(1,id);
@@ -290,6 +295,25 @@ public class ManageArticolo{
 			
 		}
 		return pezzi;
+	}
+	
+	public Articolo getArticolo(int num){
+		DbConnect.connect();
+		Articolo a=null;
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from articolo where idarticolo=?");
+			ps.setInt(1, num);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				a=new Articolo(rs.getInt("idArticolo"),rs.getString("nome"),rs.getDouble("prezzo"),rs.getInt("quantita"),rs.getString("categoria"));
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return a;
 	}
 
 }

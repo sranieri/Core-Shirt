@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
-    <%
-  ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
-  Dipendente dip=(Dipendente) session.getAttribute("dipendente");
+<% Collection<?> articoli=(Collection<?>) session.getAttribute("articoli"); 
+   Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+   if ((adminRoles == null) || (!adminRoles.booleanValue()))
+     {	
+      response.sendRedirect("./Management");
+      return;
+     }
 %>
- <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+ <%@page import="java.util.*,model.Articolo,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -15,7 +19,7 @@
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/InserisciProdotto.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/ModificaQuantitaProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
@@ -24,14 +28,11 @@
     <title>Core Shirt: The Best T-Shirts series</title>
     <script type="text/javascript">
     $(document).ready(function(){
-    	$("#form").hide();
-    	$("#nuovo").click(function(){
-    		$("#nuovo").hide();
-    		$("#pezzi").hide();
-    		$("#form").show();
-    	})
-    	$("#pezzi").click(function(){
-    		location.href="./ModificaQuantita.jsp"
+    	$("#anteprima").hide();
+    	$('#insertarticolo').change(function(){
+    		var num=$('#insertarticolo').val();
+    		$('#anteprima>img').attr('src','Immagini/Magliette/Maglietta('+num+').jpg');
+    		$('#anteprima').show();
     	})
     })
     </script>
@@ -77,34 +78,31 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
     </div>
 
 <div id="sezione"> 
-<div id="sezione2"> Inserisci Prodotto </div></div>
-<div id="nuovo">Nuovo Prodotto</div>
-<div id="pezzi">Aggiungi Pezzi</div>
+<div id="sezione2">Modifica Quantita Prodotto </div></div>
+
 <div id="form">
-<div>Inserisci nuovo prodotto</div>
-<form name="InsertArticolo" method="post" enctype="multipart/form-data" action="ServletInsertArticolo">
-			Nome
-			<input type="text" name="insertNome"/><br>
-			Categoria
-			<select name="insertCategoria">
-                             <option value="Cinema">Cinema</option>
-                             <option value="Geek">Geek</option>
-                             <option value="Divertenti">Divertenti</option>
-                             <option value="Manga">Anime e Manga</option>
-                             <option value="Comics">Comics</option>
-                             <option value="Nerd">Nerd</option>
-                           </select><br>
-            Seleziona Sesso
-   			<select id="sesso" name="sesso">
-		       <option value="M">Uomo</option>
+<form name="AggiungiPezzi" action="ServletTShirt" method="post">
+	
+	
+	Seleziona Articolo
+	<select id="insertarticolo" name="insertarticolo">
+       <%
+       Iterator<?> it1=articoli.iterator();
+          while(it1.hasNext()){
+                  Articolo bean = (Articolo) it1.next();%>
+            <option value="<%=bean.getidArticolo()%>">
+               <%=bean.getidArticolo()%>
+            </option>
+         <%}%>
+   </select><br>
+   Seleziona Sesso
+	<select id="sesso" name="sesso">
+	           <option value="M">Uomo</option>
 		       <option value="F">Donna</option>
-   			</select> 
-   			<br>
-			Prezzo
-			<input type="text" name="insertPrezzo"/><br>
-		   Seleziona Colore
-			<select id="colore" name="colore">
-		       <option value="black">Nero</option>
+	</select>
+   Seleziona Colore
+	<select id="colore" name="colore">
+               <option value="black">Nero</option>
 		       <option value="grey">Grigio</option>
 		       <option value="white">Bianco</option>
 		       <option value="green">Verde</option>
@@ -112,10 +110,10 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="red">Rosso</option>
 		       <option value="purple">Viola</option>
 		       <option value="blue">Blu</option>
-		   </select><br>
-		   Seleziona Taglia
-			<select id="taglia" name="taglia">
-		       <option value="S">S</option>
+   </select><br>
+   Seleziona Taglia
+	<select id="taglia" name="taglia">
+               <option value="S">S</option>
 		       <option value="M">M</option>
 		       <option value="L">L</option>
 		       <option value="XL">XL</option>
@@ -123,13 +121,14 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="3XL">3XL</option>
 		       <option value="4XL">4XL</option>
 		       <option value="5XL">5XL</option>
-		   </select><br>
-			Quantita
-			<input type="text" name="insertQuantita"/><br>
-			Immagine
-			<input type="file" name="upfile" placeholder="Nome file" required></input>
-			<br><input type="submit"  value="Inserisci Articolo">
-		</form>
+   </select><br>
+	Quantita
+    <input type="text" name="insertQuantita"/><br>
+	<br><button id="submit" type="submit">Modifica</button>
+</form>
+</div>
+<div id="anteprima">
+    <img alt="seleziona articolo" src="0.png">
 </div>
 <br>
 </article>

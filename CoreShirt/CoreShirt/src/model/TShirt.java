@@ -25,6 +25,16 @@ public class TShirt extends Articolo{
 		this.quantita=quantity;
 	}
 
+	public TShirt(Articolo x,String sesso,String taglia,String colore,int quantita){
+		this.taglia = taglia;
+		this.colore = colore;
+		this.idArticolo= x.getidArticolo();
+		this.sesso = sesso;
+		this.nome = x.getnome();
+		this.prezzo = x.getprezzo();
+		this.quantita=quantita;
+	}
+
 	public String getTaglia() {
 		return taglia;
 	}

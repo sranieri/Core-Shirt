@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,12 +29,14 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ManageDipendente md=new ManageDipendente();
 		String path="";
 		if(request.getParameter("logout")!=null){
 			request.getSession().setAttribute("adminRoles", new Boolean(false));
 			request.getSession().setAttribute("Contabile", new Boolean(false));
 			request.getSession().setAttribute("Magazzino", new Boolean(false));
 			request.getSession().setAttribute("AdminDip", new Boolean(false));
+			request.setAttribute("DipendenteSession",null);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -52,6 +55,11 @@ public class ServletLogin extends HttpServlet {
 		}
 		else if(tipo.equals("Magazzino")){
 			request.getSession().setAttribute("Magazzino", new Boolean(true));
+			try {
+				request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			path="/HomeMagazzino.jsp";
 		}
 		else if(tipo.equals("AdminDip")){
@@ -60,6 +68,7 @@ public class ServletLogin extends HttpServlet {
 			path="/HomeDipendenti.jsp";
 		}
 		}
+		request.getSession().setAttribute("DipendenteSession",md.getDipendente(username,password));
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 		}

@@ -1,16 +1,16 @@
 package model;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 public class Rifornimento {
 
 	public String idRifornimento,stato,idDipendente;
-	public ArrayList<TShirt> listaArticoli;
+	public TShirt tshirt;
 	public double totale;
-	public Date dataRichiesta,dataEffettuazione,dataConsegna;
+	String dataRichiesta;
+	public Date dataEffettuazione,dataConsegna;
 	
-	public Rifornimento(String idRifornimento,double totale,String stato,String idDipendente,Date dataRichiesta,Date dataEffettuazione,Date dataConsegna){
+	public Rifornimento(String idRifornimento,double totale,String stato,String idDipendente,String dataRichiesta,Date dataEffettuazione,Date dataConsegna){
 		this.idRifornimento=idRifornimento;
-		this.listaArticoli=new ArrayList<TShirt>();
 		this.totale=totale;
 		this.stato=stato;
 		this.idDipendente=idDipendente;
@@ -19,20 +19,22 @@ public class Rifornimento {
 		this.dataConsegna=dataConsegna;
 	}
 	
+	public Rifornimento(String idDipendente, String articolo, String sesso, String taglia, String colore,String quantita) {
+		tshirt=new TShirt(Integer.parseInt(articolo), sesso, "", colore, taglia, Integer.parseInt(quantita));
+		this.totale=7.0*Integer.parseInt(quantita);
+		this.stato="inevaso";
+		this.idDipendente=idDipendente;
+		this.dataRichiesta=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		this.dataEffettuazione=null;
+		this.dataConsegna=null;
+	}
+
 	public String getIdRifornimento(){
 		return idRifornimento;
 	}
 	
 	public void setIdRifornimento(String idRifornimento){
 		this.idRifornimento=idRifornimento;
-	}
-	
-	public ArrayList<TShirt> getListaArticoli(){
-		return listaArticoli;
-	}
-	
-	public void setListaArticolo(ArrayList<TShirt> listaArticoli){
-		this.listaArticoli=listaArticoli;
 	}
 	
 	public double getTotale(){
@@ -59,11 +61,11 @@ public class Rifornimento {
 		this.idDipendente=idDipendente;
 	}
 	
-	public Date getDataRichiesta(){
+	public String getDataRichiesta(){
 		return dataRichiesta;
 	}
 	
-	public void setDataRichiesta(Date data){
+	public void setDataRichiesta(String data){
 		this.dataRichiesta=data;
 	}
 	
@@ -82,9 +84,17 @@ public class Rifornimento {
 	public void setDataConsegna(Date dataConsegna){
 		this.dataConsegna=dataConsegna;
 	}
-	
-	public void add(TShirt t){
-		listaArticoli.add(t);
+
+	public TShirt getTshirt() {
+		return tshirt;
+	}
+
+	public void setTshirt(TShirt tshirt) {
+		this.tshirt = tshirt;
+	}
+
+	public void setIdDipendente(String idDipendente) {
+		this.idDipendente = idDipendente;
 	}
 	
 }

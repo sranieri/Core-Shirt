@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<% Collection<?> articoli=(Collection<?>) session.getAttribute("articoli"); 
+   Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+   if ((adminRoles == null) || (!adminRoles.booleanValue()))
+     {	
+      response.sendRedirect("./Management");
+      return;
+     }
+%>
+ <%@page import="java.util.*,model.Articolo,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -10,6 +18,7 @@
     <link rel="icon" href="./Immagini/sprite0.png" />
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/RimuoviProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -63,12 +72,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Inserisci Prodotto</a></li>
-            <li><a href="./?action=Donna">Rimuovi Prodotto</a> </li>
-            <li><a href="./About">Evadi Ordine </a></li>
-            <li><a href="./Help">Modifica Quantità</a></li>   
-            <li><a href="./?action=Donna">Rifornimento Prodotto</a> </li>
+            <li><a href="./HomeMagazzino.jsp">Home</a> </li>
+            <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
+            <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
+            <li><a href="./Evadi.jsp">Evadi Ordini</a></li>
+            <li><a href="./ModificaQuantita.jsp">Modifica Quantità</a></li>   
+            <li><a href="./RifornimentoProdotto.jsp">Rifornimento Prodotti</a></li>
  
         </ul>
     </nav>
@@ -78,28 +87,48 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Rimuovi Prodotto </div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
-	
-	
+<form name="RimuoviProdotto" action="ServletTShirt" method="post" onsubmit="return validateForm()">
+	<input type="hidden" name="rimuovi" value="rimuovi">
 	Seleziona Articolo
-	<select id="tipo" name="tipo">
-       
+	<select id="insertarticolo" name="insertarticolo">
+       <%
+       Iterator<?> it1=articoli.iterator();
+          while(it1.hasNext()){
+                  Articolo bean = (Articolo) it1.next();%>
+            <option value="<%=bean.getidArticolo()%>">
+               <%=bean.getidArticolo()%>
+            </option>
+         <%}%>
    </select><br>
-
-	
+   Seleziona Sesso
+	<select id="sesso" name="sesso">
+	           <option value="M">Uomo</option>
+		       <option value="F">Donna</option>
+	</select>
    Seleziona Colore
-	<select id="tipo" name="tipo">
-       
+	<select id="colore" name="colore">
+               <option value="black">Nero</option>
+		       <option value="grey">Grigio</option>
+		       <option value="white">Bianco</option>
+		       <option value="green">Verde</option>
+		       <option value="orange">Arancio</option>
+		       <option value="red">Rosso</option>
+		       <option value="purple">Viola</option>
+		       <option value="blue">Blu</option>
    </select><br>
    Seleziona Taglia
-	<select id="tipo" name="tipo">
-       
+	<select id="taglia" name="taglia">
+               <option value="S">S</option>
+		       <option value="M">M</option>
+		       <option value="L">L</option>
+		       <option value="XL">XL</option>
+		       <option value="XXL">XXL</option>
+		       <option value="3XL">3XL</option>
+		       <option value="4XL">4XL</option>
+		       <option value="5XL">5XL</option>
    </select><br>
 	
-	
-	
-	
-	<br><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Rimuovi</button>
+	<br><button id="submit" type="submit">Rimuovi</button>
 </form>
 </div>
 <br>

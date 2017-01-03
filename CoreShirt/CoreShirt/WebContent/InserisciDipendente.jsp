@@ -8,10 +8,12 @@
     <script src="Script/jquery.js"></script>
     <script src="Script/loadmore.js"></script>
     <link rel="icon" href="./Immagini/sprite0.png" />
-    <link rel="stylesheet" href="./CSS/base.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/home.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
+    <style>
+    @import url("./CSS/base.css");
+    @import url("./CSS/home.css");
+    @import url("./CSS/InserisciDipendente.css");
+    @import url("./CSS/thumbnails.css");
+    </style>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
@@ -69,7 +71,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
             <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
         </ul>
-        </nav>
+    </nav>
     </div>
 
 <div id="sezione"> 
@@ -77,22 +79,22 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="form">
 <form name="InsertDipendente" action="ServletInserisciDipendente" method="post" onsubmit="return validateForm()">
-	<label for="Nome">Nome</label>
+	Nome
 	<input id="nome" type="text" name="nome"><br>
-	<label for="Cognome">Cognome</label>
+	Cognome
 	<input id="cognome" type="text" name="cognome"><br>
-	<label for="Codice Fiscale">Codice Fiscale</label>
+	Codice Fiscale
 	<input id="fiscale" type="text" name="codiceFiscale"><br>
-	<label for="Stipendio">Stipendio</label> 
+	Stipendio 
 	<input id="stipendio" type="text" name="stipendio"><br>
-	<label for="Tipo">Tipo</label>
+	Tipo
 	<select id="tipo" name="tipo">
        <option  value="Magazzino" selected>Magazziniere</option>
        <option  value="Contabilita" selected>Contabile</option>
        </select><br>
-	<label for="Username">Username</label>
+	Username
 	<input id="utente"  type="text" name="username"><br>
-	<label for="Password">Password</label>
+	Password
 	<input id="pssw" type="text" name="password"><br>
 	<br><button id="submit" type="submit" onclick="ServletDipendente" onsubmit="return validateForm()">Inserisci</button>
 </form>
