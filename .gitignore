@@ -1,0 +1,4 @@
+*.classpath
+*.class
+CoreShirt/CoreShirt/src/control/DbConnect.java
+*.xml

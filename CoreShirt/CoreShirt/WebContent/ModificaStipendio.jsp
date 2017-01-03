@@ -94,7 +94,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
      </select><br>
 	Inserire lo stipendio
 	<input id="stipendio" type="text" name="stipendio"><br>
-	<br><button id="submit" type="submit">Modifica</button>
+	<br><div id="modifica"><button id="submit" type="submit">Modifica</button></div>
 </form>
 </div>
 <br>

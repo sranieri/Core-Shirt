@@ -81,17 +81,17 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
 	
 	
-	Seleziona Articolo
+	<div>Seleziona Articolo</div>
 	<select id="tipo" name="tipo">
        
    </select><br>
 
 	
-   Seleziona Colore
+   <div>Seleziona Colore</div>
 	<select id="tipo" name="tipo">
        
    </select><br>
-   Seleziona Taglia
+   <div>Seleziona Taglia</div>
 	<select id="tipo" name="tipo">
        
    </select><br>
@@ -99,7 +99,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 	
 	
 	
-	<br><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Modifica</button>
+	<br><div id="modifica"><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Modifica</button></div>
 </form>
 </div>
 <br>

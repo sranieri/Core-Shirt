@@ -78,10 +78,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="sezione"> 
 <div id="sezione2"> Inserisci Prodotto </div></div>
-<div id="nuovo">Nuovo Prodotto</div>
-<div id="pezzi">Aggiungi Pezzi</div>
+<div id="container2">
+<div id="nuovo">Inserisci Nuovo Prodotto</div>
+<div id="pezzi">Modifica Quantità Prodotto</div>
+</div>
 <div id="form">
-<div>Inserisci nuovo prodotto</div>
+<div id="InserisciProdotto">Inserisci nuovo prodotto</div>
 <form name="InsertArticolo" method="post" enctype="multipart/form-data" action="ServletInsertArticolo">
 			Nome
 			<input type="text" name="insertNome"/><br>
@@ -124,7 +126,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="4XL">4XL</option>
 		       <option value="5XL">5XL</option>
 		   </select><br>
-			Quantita
+			Quantità
 			<input type="text" name="insertQuantita"/><br>
 			Immagine
 			<input type="file" name="upfile" placeholder="Nome file" required></input>

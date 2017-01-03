@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/ModificaQuantitaProdotto.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/RifornimentoProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
@@ -73,7 +73,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="form">
 <form name="InsertRifornimento" action="ServletRifornimento" method="post">
 	<input type="hidden" name="dipendente" value="<%=dip.getId()%>">
-	Seleziona Articolo
+	<div>Seleziona Articolo</div>
 	<select id="insertarticolo" name="insertarticolo">
        <%
        Iterator<?> it1=articoli.iterator();
@@ -84,12 +84,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             </option>
          <%}%>
    </select><br>
-   Seleziona Sesso
+   <div>Seleziona Sesso</div>
 	<select id="sesso" name="sesso">
 	           <option value="M">Uomo</option>
 		       <option value="F">Donna</option>
 	</select>
-   Seleziona Colore
+   <div>Seleziona Colore</div>
 	<select id="colore" name="colore">
                <option value="black">Nero</option>
 		       <option value="grey">Grigio</option>
@@ -100,7 +100,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="purple">Viola</option>
 		       <option value="blue">Blu</option>
    </select><br>
-   Seleziona Taglia
+   <div>Seleziona Taglia</div>
 	<select id="taglia" name="taglia">
                <option value="S">S</option>
 		       <option value="M">M</option>
@@ -111,8 +111,8 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="4XL">4XL</option>
 		       <option value="5XL">5XL</option>
    </select><br>
-   
-	<%-- Codice Per aumento e decremento Nuemero --%> 
+   <div>Quantità</div>
+	<%-- Codice Per aumento e decremento Numero --%> 
 	<input type="number" id="myNumber" name="quantita">
 <script>
 function myFunction() {
@@ -122,7 +122,7 @@ function myFunction() {
 
 	
 	
-	<br><button id="submit" type="submit">Richiedi</button>
+	<br><div id="richiedi"><button id="submit" type="submit">Richiedi</button></div>
 </form>
 </div>
 <br>

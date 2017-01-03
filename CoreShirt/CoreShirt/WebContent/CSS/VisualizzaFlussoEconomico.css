@@ -68,13 +68,13 @@ ul#Lista {
 	margin-bottom: 10px;
 }
 
-#sezione2 {
+#sezione2{
 	border: 2px solid black;
 	width: 30%;
 	margin-left: 100px;
 	font-size: 25px;
-	margin-bottom: 10px;
-}
+	background-color: #949498;
+	}
 
 #sezione {
 	padding-bottom: 20px;

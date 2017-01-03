@@ -89,7 +89,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="form">
 <form name="RimuoviProdotto" action="ServletTShirt" method="post" onsubmit="return validateForm()">
 	<input type="hidden" name="rimuovi" value="rimuovi">
-	Seleziona Articolo
+	<div>Seleziona Articolo</div>
 	<select id="insertarticolo" name="insertarticolo">
        <%
        Iterator<?> it1=articoli.iterator();
@@ -100,12 +100,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             </option>
          <%}%>
    </select><br>
-   Seleziona Sesso
+  <div>Seleziona Sesso</div>
 	<select id="sesso" name="sesso">
 	           <option value="M">Uomo</option>
 		       <option value="F">Donna</option>
 	</select>
-   Seleziona Colore
+   <div>Seleziona Colore</div>
 	<select id="colore" name="colore">
                <option value="black">Nero</option>
 		       <option value="grey">Grigio</option>
@@ -116,7 +116,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="purple">Viola</option>
 		       <option value="blue">Blu</option>
    </select><br>
-   Seleziona Taglia
+   <div>Seleziona Taglia</div>
 	<select id="taglia" name="taglia">
                <option value="S">S</option>
 		       <option value="M">M</option>
@@ -128,7 +128,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="5XL">5XL</option>
    </select><br>
 	
-	<br><button id="submit" type="submit">Rimuovi</button>
+	<br><div id="rimuovi"><button id="submit" type="submit">Rimuovi</button></div>
 </form>
 </div>
 <br>
