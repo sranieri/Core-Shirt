@@ -76,27 +76,40 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Ordina Prodotto </div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
+<form name="InsertProdotto" action="ServletInsertArticolo" method="post">
 	Inserisci il Nome
-	<input id="nome" type="text" name="nome"><br>
+	<input id="nome" type="text" name="insertNome"><br>
 	
 	Seleziona Categoria
-	<select id="tipo" name="tipo">
-       
+	<select id="tipo" name="insertCategoria">
+    <option value="Geek">Geek</option>
+	<option value="Manga">Manga</option>
+	<option value="Divertenti">Divertenti</option>
+	<option value="Cinema">Cinema</option>
+	<option value="Nerd">Nerd</option>
    </select><br>
-     Iserisci Quantita
+     Inserisci Quantita
 	<input id="Quantita" type="number" cognome"><br>
 	
    Seleziona Colore
-	<select id="tipo" name="tipo">
-       
+	<select id="tipo" name="colore">
+    <option value="Nero">Nero</option>
+	<option value="Bianco">Bianco</option>
+	<option value="Rosso">Rosso</option>
+	<option value="Giallo">Giallo</option>
+	<option value="Blu">Blu</option>
+	<option value="Marrone">Marrone</option>
    </select><br>
    Seleziona Taglia
-	<select id="tipo" name="tipo">
-       
+	<select id="tipo" name="taglia">
+	<option value="XXS">XXS</option>
+	<option value="XS">XS</option>
+	<option value="S">S</option>
+	<option value="M">M</option>
+	<option value="L">L</option>
+	<option value="XL">XL</option>
+	<option value="XXL">XXL</option>
    </select><br>
-	
-	
 	
 	
 	<br><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Ordina  </button>

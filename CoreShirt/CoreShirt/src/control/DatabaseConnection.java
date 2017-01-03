@@ -17,7 +17,7 @@ import model.Articolo;
 
 public class DatabaseConnection {
 	private static final   String driver = "com.mysql.jdbc.Driver";
-	private static final     String url = "jdbc:mysql://localhost:3306/coreshirt2?user=root&password=Freitag22*"; 
+	private static final     String url = "jdbc:mysql://localhost:3306/coreshirt?user=root&password=kalibandulu"; 
 
 	static{try {
 		Class.forName(driver);

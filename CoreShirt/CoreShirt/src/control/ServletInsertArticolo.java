@@ -52,7 +52,7 @@ public class ServletInsertArticolo extends HttpServlet {
 		
 		ManageArticolo ma=new ManageArticolo();
 		if(request.getParameter("insertNome")!=""&&request.getParameter("insertCategoria")!=""&&request.getParameter("insertPrezzo")!=""&&request.getParameter("insertQuantita")!=""){
-			Articolo a=new Articolo(request.getParameter("insertNome"),Double.parseDouble(request.getParameter("insertPrezzo")),0,request.getParameter("insertCategoria"));
+			Articolo a=new Articolo(request.getParameter("insertNome"),12,0,request.getParameter("insertCategoria"));
 			int num;
 			if((num=ma.insertArticolo(a))>0) System.out.println("Inserimento effettuato");
 			else System.out.println("Inserimento non effettuato");
@@ -63,6 +63,7 @@ public class ServletInsertArticolo extends HttpServlet {
 			response.sendRedirect("InserisciProdotto.jsp");
 
 		}
+		
 	}
 
 	private void Upload(Part filePart,int num) {
