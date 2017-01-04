@@ -56,7 +56,8 @@ public class ServletInsertArticolo extends HttpServlet {
 			int num;
 			if((num=ma.insertArticolo(a))>0) System.out.println("Inserimento effettuato");
 			else System.out.println("Inserimento non effettuato");
-			Upload(request.getPart("upfile"),num);
+			if(request.getPart("upfile")!=null)
+			   {Upload(request.getPart("upfile"),num);}
 			TShirt t= new TShirt(ma.getArticolo(num),request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),Integer.parseInt(request.getParameter("insertQuantita")));
 			new ManageTshirt().insertTshirt(t);
 			ma.updateQuantita(""+num, ma.getQuantita(num)+t.getquantita());

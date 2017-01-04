@@ -76,39 +76,49 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Ordina Prodotto </div></div>
 
 <div id="form">
-<form name="InsertProdotto" action="ServletInsertArticolo" method="post">
+<form name="InsertProdotto" action="ServletInsertArticolo" enctype="multipart/form-data" method="post">
 	Inserisci il Nome
 	<input id="nome" type="text" name="insertNome"><br>
 	
 	Seleziona Categoria
 	<select id="tipo" name="insertCategoria">
-    <option value="Geek">Geek</option>
-	<option value="Manga">Manga</option>
-	<option value="Divertenti">Divertenti</option>
-	<option value="Cinema">Cinema</option>
-	<option value="Nerd">Nerd</option>
+                             <option value="Cinema">Cinema</option>
+                             <option value="Geek">Geek</option>
+                             <option value="Divertenti">Divertenti</option>
+                             <option value="Manga">Anime e Manga</option>
+                             <option value="Comics">Comics</option>
+                             <option value="Nerd">Nerd</option>
    </select><br>
+   
+   Seleziona Sesso
+   			<select id="sesso" name="sesso">
+		       <option value="M">Uomo</option>
+		       <option value="F">Donna</option>
+   			</select> 
      Inserisci Quantita
-	<input id="Quantita" type="number" cognome"><br>
+	<input id="Quantita" type="number" name="insertQuantita"><br>
 	
    Seleziona Colore
 	<select id="tipo" name="colore">
-    <option value="Nero">Nero</option>
-	<option value="Bianco">Bianco</option>
-	<option value="Rosso">Rosso</option>
-	<option value="Giallo">Giallo</option>
-	<option value="Blu">Blu</option>
-	<option value="Marrone">Marrone</option>
+    <option value="black">Nero</option>
+		       <option value="grey">Grigio</option>
+		       <option value="white">Bianco</option>
+		       <option value="green">Verde</option>
+		       <option value="orange">Arancio</option>
+		       <option value="red">Rosso</option>
+		       <option value="purple">Viola</option>
+		       <option value="blue">Blu</option>
    </select><br>
    Seleziona Taglia
 	<select id="tipo" name="taglia">
-	<option value="XXS">XXS</option>
-	<option value="XS">XS</option>
 	<option value="S">S</option>
 	<option value="M">M</option>
 	<option value="L">L</option>
 	<option value="XL">XL</option>
 	<option value="XXL">XXL</option>
+	<option value="3XL">3XL</option>
+	<option value="4XL">4XL</option>
+	<option value="5XL">5XL</option>
    </select><br>
 	
 	
