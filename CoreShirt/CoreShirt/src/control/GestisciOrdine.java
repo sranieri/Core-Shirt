@@ -2,6 +2,8 @@ package control;
 
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +29,21 @@ public class GestisciOrdine extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ManageOrdine mo=new ManageOrdine();
+		if(request.getParameter("cambiaStato")!=""){
+			if(mo.evadi(request.getParameter("idOrdine")))
+				System.out.println("Modificato!");
+		}
+		if(request.getParameter("dettagli")!=null){
+			String ordine=request.getParameter("idOrdine");
+			String cliente=request.getParameter("idCliente");
+			request.getSession().removeAttribute("listaArticoli");
+		    request.getSession().removeAttribute("Cliente");
+			request.getSession().setAttribute("listaArticoli",mo.dettagliA(Integer.parseInt(ordine)));
+		    request.getSession().setAttribute("Cliente",mo.dettagliC(Integer.parseInt(cliente)));
+		}
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/EvadiOrdine.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -37,19 +52,6 @@ public class GestisciOrdine extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		ManageOrdine mo=new ManageOrdine();
-
-		if(request.getParameter("cambiaStato")!=""){
-			if(mo.evadi(request.getParameter("idOrdine")))
-				System.out.println("Modificato!");
-		}
-		if(request.getParameter("eliminaOrdine")!=null){
-			if(mo.deleteOrdine((request.getParameter("eliminaOrdine"))))
-				System.out.println("Eliminato");
-		}
-		response.sendRedirect("GestioneOrdini.jsp");
-
-
 	}
 
 }

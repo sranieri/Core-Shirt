@@ -12,6 +12,10 @@ public class Cliente {
 		this.recapito=recapito;
 	}
 	
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getIdCliente(){
 		return idCliente;
 	}

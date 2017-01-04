@@ -35,6 +35,10 @@ public class TShirt extends Articolo{
 		this.quantita=quantita;
 	}
 
+	public TShirt() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTaglia() {
 		return taglia;
 	}

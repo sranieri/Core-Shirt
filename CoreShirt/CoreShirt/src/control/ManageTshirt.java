@@ -168,6 +168,29 @@ public class ManageTshirt {
 		}
 		return id;
 	}
+	
+	public TShirt getTShirtR(String string){
+		TShirt t=new TShirt();
+		DbConnect.connect();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from tshirt where idtshirt in(select idtshirt from composizionerifornimento where idrifornimento=?);");
+			ps.setInt(1,Integer.parseInt(string));
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				t.setId(rs.getInt("articolo"));
+				t.setSesso(rs.getString("sesso"));
+				t.setTaglia(rs.getString("taglia"));
+				t.setColore(rs.getString("colore"));
+				t.setquantita(rs.getInt("quantita"));
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return t;
+	}
 }
 	
 

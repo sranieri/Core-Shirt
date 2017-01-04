@@ -2,8 +2,12 @@
 
     pageEncoding="UTF-8"%>
     <%
-  ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
-  Dipendente dip=(Dipendente) session.getAttribute("dipendente");
+  Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+  if ((adminRoles == null) || (!adminRoles.booleanValue()))
+    {	
+     response.sendRedirect("./Management");
+     return;
+    }
 %>
  <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>

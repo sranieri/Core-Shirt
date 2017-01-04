@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+    
+<%
+   ArrayList<?> rif=(ArrayList<?>)session.getAttribute("rifornimenti");
+%>
+ <%@page import="java.util.*,model.Rifornimento,control.ManageDipendente,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -10,6 +14,7 @@
     <link rel="icon" href="./Immagini/sprite0.png" />
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/OrdinaProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -19,18 +24,12 @@
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
        $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
+		  $(".dettaglir").hide();
+		  $("#Richieste").change(function(){
+			  var r=$("#Richieste").val();
+			  $(".dettaglir").hide();
+			  $("#dettagliR"+r).show();
+		  })
 		});
 	</script>
 </head>
@@ -40,11 +39,6 @@
 <div>     
     <article id="articolo" >
 		<script src="checkForm.js"></script>
-
-<%!/*
-ManageDipendente md=new ManageDipendente();
-ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
-%>
 
 <article>
 <div id="wrapper">
@@ -66,7 +60,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./">Home</a> </li>
             <li><a href="./?action=Uomo">Ordina Prodotti</a></li>
             <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">V Flusso Economico </a></li>
+            <li><a href="./About">Visualizza Flusso Economico </a></li>
             <li><a href="./Help">Aggiungi Straordinari </a></li>   
         </ul>
     </nav>
@@ -74,7 +68,46 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="sezione"> 
 <div id="sezione2"> Ordina Prodotto </div></div>
-
+<div id="rifornimento">
+   <form action="ServletRifornimento" method="post">
+      <input type="hidden" name="evadi" value="1">
+      Seleziona Richiesta 
+      <select id="Richieste" name="richiesta">
+      <%
+       Iterator<?> it1=rif.iterator();
+          while(it1.hasNext()){
+                  Rifornimento bean = (Rifornimento) it1.next();%>
+            <option value="<%=bean.getIdRifornimento()%>">
+               <%=bean.getIdRifornimento()%>
+            </option>
+         <%}%>
+      </select>
+      <button id="evadi" type="submit">Evadi</button>
+      <%int K=1; 
+      it1=rif.iterator();
+      while(it1.hasNext()){
+          Rifornimento bean = (Rifornimento) it1.next();
+          String path="./Immagini/Magliette/Maglietta("+bean.getTshirt().getidArticolo()+").jpg";%>
+          <div id="dettagliR<%=K%>" class="dettaglir">
+               <table>
+                  <th>Maglia</th>
+                  <th>Sesso</th>
+                  <th>Taglia</th>
+                  <th>Colore</th>
+                  <th>Quantita</th>
+                  <tr>
+                     <td><div><img class="maglietta" src=<%=path%>></div></td></td>
+                     <td><%=bean.getTshirt().getSesso() %></td>
+                     <td><%=bean.getTshirt().getTaglia() %></td>
+                     <td><%=bean.getTshirt().getColore() %></td>
+                     <td><%=bean.getTshirt().getquantita()%></td>
+                  </tr>
+               </table>
+          </div>
+     <%K++;
+     }%>
+   </form>
+</div>
 <div id="form">
 <form name="InsertProdotto" action="ServletInsertArticolo" enctype="multipart/form-data" method="post">
 	Inserisci il Nome

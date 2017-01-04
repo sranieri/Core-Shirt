@@ -2,17 +2,16 @@ package control;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import model.Rifornimento;
 import model.TShirt;
 public class ManageRifornimento {
-	private double totale;
-	private String idRifornimento,idDipendente,stato;
-	private Date dataRichiesta;
-	private Date dataEffettuazione;
-	private Date dataConsegna;
 	private ArrayList<Rifornimento> rifornimenti=new ArrayList<Rifornimento>();
 	
 	public ManageRifornimento(){}
@@ -23,7 +22,9 @@ public class ManageRifornimento {
 			PreparedStatement ps=DbConnect.con.prepareStatement("select * from rifornimento");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
-				Rifornimento r=new Rifornimento(rs.getString("idRifornimento"),rs.getDouble("totale"),rs.getString("stato"),rs.getString("idDipendente"),""+rs.getDate("dataRichiesta"),rs.getDate("dataEffettuazione"),rs.getDate("dataConsegna"));
+				Rifornimento r=new Rifornimento(rs.getString("idRifornimento"),rs.getDouble("totale"),rs.getString("stato"),rs.getString("idDipendente"),""+rs.getDate("dataRichiesta"),rs.getDate("dataEffettuazione"),rs.getDate("dataConsegnaPrevista"));
+				TShirt tshirt=new ManageTshirt().getTShirtR(r.getIdRifornimento()); 
+				r.setTshirt(tshirt);
 				rifornimenti.add(r);
 			}
 			ps.close();
@@ -78,11 +79,11 @@ public class ManageRifornimento {
 		DbConnect.close();
 		return flag;
 	}
-	public boolean deleteRifornimento(){
+	public boolean deleteRifornimento(String idRifornimento){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("delete from rifornimento where id=?");
+			PreparedStatement ps=DbConnect.con.prepareStatement("delete from rifornimento where idrifornimento=?");
 			ps.setString(1,idRifornimento);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -94,12 +95,12 @@ public class ManageRifornimento {
 		return flag;
 	}
 	
-	public boolean updateIdDipendente(){
+	public boolean updateDataEffettuazione(String dataEffettuazione,String idRifornimento){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set idDipendente=? where id=?");
-			ps.setString(1,idDipendente);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataEffettuazione=? where idrifornimento=?");
+			ps.setString(1,dataEffettuazione);
 			ps.setString(2,idRifornimento);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -111,12 +112,12 @@ public class ManageRifornimento {
 		return flag;
 	}
 	
-	public boolean updateDataEffettuazione(){
+	public boolean updateDataRichiesta(String data,String idRifornimento){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataEffettuazione=? where id=?");
-			//ps.setDate(1,dataEffettuazione);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataRichiesta=? where idrifornimento=?");
+			ps.setString(1,data);
 			ps.setString(2,idRifornimento);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -128,28 +129,12 @@ public class ManageRifornimento {
 		return flag;
 	}
 	
-	public boolean updateDataRichiesta(){
+	public boolean updateDataConsegna(String dataConsegna,String idRifornimento){
 		DbConnect.connect();
 		boolean flag=false;
 		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataRichiesta=? where id=?");
-			//ps.setString(2,dataRichiesta);
-			if(ps.executeUpdate()>0) flag=true;
-			ps.close();
-			DbConnect.close();
-		}catch(SQLException e){
-			System.out.println("Connesione fallita");
-			e.printStackTrace();
-		}
-		return flag;
-	}
-	
-	public boolean updateDataConsegna(){
-		DbConnect.connect();
-		boolean flag=false;
-		try{
-			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataConsegna=? where id=?");
-			//ps.setString(1,dataConsegna);
+			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set dataConsegnaPrevista=? where idrifornimento=?");
+			ps.setString(1,dataConsegna);
 			ps.setString(2,idRifornimento);
 			if(ps.executeUpdate()>0) flag=true;
 			ps.close();
@@ -161,10 +146,33 @@ public class ManageRifornimento {
 		return flag;
 	}
 	
-	//public boolean updateData(){}
-	
-	
-	
-	
+	public boolean evadi(String id){
+		String data=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		updateDataEffettuazione(data, id);
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar c = Calendar.getInstance();
+			c.setTime(sdf.parse(data));
+			c.add(Calendar.DATE, 3);  // number of days to add
+			data = sdf.format(c.getTime());  // dt is now the new date
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		updateDataConsegna(data, id);
+		DbConnect.connect();
+		boolean flag=false;
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("update rifornimento set stato=? where idrifornimento=?");
+			ps.setString(1,"evaso");
+			ps.setString(2,id);
+			if(ps.executeUpdate()>0) flag=true;
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connesione fallita");
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 }

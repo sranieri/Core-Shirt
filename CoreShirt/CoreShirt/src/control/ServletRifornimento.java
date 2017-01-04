@@ -28,6 +28,12 @@ public class ServletRifornimento extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("evadi")!=null){
+			String idRifornimento=request.getParameter("richiesta");
+			new ManageRifornimento().evadi(idRifornimento);
+			response.sendRedirect("HomeContabilita.jsp");
+		}
+		else{
 		String idDipendente=request.getParameter("dipendente");
 		String articolo=request.getParameter("insertarticolo");
 		String sesso=request.getParameter("sesso");
@@ -36,7 +42,7 @@ public class ServletRifornimento extends HttpServlet {
 		String quantita=request.getParameter("quantita");
 		Rifornimento r=new Rifornimento(idDipendente,articolo,sesso,taglia,colore,quantita);
 	    new ManageRifornimento().insertRifornimento(r);
-	    response.sendRedirect("HomeMagazzino.jsp");
+	    response.sendRedirect("HomeMagazzino.jsp");}
 	}
 
 	/**

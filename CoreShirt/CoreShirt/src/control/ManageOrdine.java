@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import model.Cliente;
 import model.Fattura;
 import model.Ordine;
+import model.TShirt;
 
 public class ManageOrdine {
 
@@ -262,5 +264,51 @@ public class ManageOrdine {
 			e.printStackTrace();
 		}
 		return o;
+	}
+	
+	public ArrayList<TShirt> dettagliA(int id){
+		ArrayList<TShirt> ordine=new ArrayList<TShirt>();
+		DbConnect.connect();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from tshirt where idtshirt in(select idtshirt from composizioneordine where idordine=?);");
+			ps.setInt(1,id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				TShirt t=new TShirt();
+				t.setId(rs.getInt("articolo"));
+				t.setSesso(rs.getString("sesso"));
+				t.setTaglia(rs.getString("taglia"));
+				t.setColore(rs.getString("colore"));
+				t.setquantita(rs.getInt("quantita"));
+				ordine.add(t);
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return ordine;
+	}
+	
+	public Cliente dettagliC(int id){
+		DbConnect.connect();
+		Cliente c=new Cliente();
+		try{
+			PreparedStatement ps=DbConnect.con.prepareStatement("select * from cliente where idcliente=?");
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				c.setNome(rs.getString("nome"));
+				c.setCognome(rs.getString("cognome"));
+				c.setEmail(rs.getString("recapito"));
+			}
+			ps.close();
+			DbConnect.close();
+		}catch(SQLException e){
+			System.out.println("Connessione Fallita");
+			e.printStackTrace();
+		}
+		return c;
 	}
 }

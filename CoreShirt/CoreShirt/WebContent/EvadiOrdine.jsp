@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+    ArrayList<TShirt> articoli=(ArrayList<TShirt>) session.getAttribute("listaArticoli");
+    Cliente c=(Cliente) session.getAttribute("Cliente");
+%>
+ <%@page import="java.util.*,model.Ordine,model.Cliente,model.TShirt,control.ManageOrdine,control.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -11,29 +15,39 @@
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/EvadiOrdine.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
-    <link rel="stylesheet" href="./CSS/HomeDip.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/Magazzino.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
-    <script>
-       $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
-		});
-	</script>
+    <script type="text/javascript">
+       $(document).ready(function(){
+    	   $("#popup").hide();
+    	   $("#veil").hide();
+    	   $(".chiudi").click(function(){
+    			$("#popup").hide();
+    		$("#veil").fadeOut();
+    	    });
+    	   $(".dettagli").click(function(){
+    		   var k=this.getAttribute("id");
+    		   var o=$("#ordine"+k).val();
+        	   var c=$("#cliente"+k).val();
+        	   var a="GestisciOrdine?dettagli=1&idOrdine="+o+"&idCliente="+c;
+        	   $.ajax({
+       			type:"get",
+       			url: a,
+       			success:function(result){
+       				$('#popup>table').load("./EvadiOrdine.jsp #popup>table");
+       				$("#popup").show();
+        	    	$("#veil").fadeIn();
+       			}  
+    	   })
+   		})
+       })
+    </script>
 </head>
 <body>
 
@@ -41,11 +55,6 @@
 <div>     
     <article id="articolo" >
 		<script src="checkForm.js"></script>
-
-<%!/*
-ManageDipendente md=new ManageDipendente();
-ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
-%>
 
 <article>
 <div id="wrapper">
@@ -59,33 +68,56 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
         
     <article id="ArticleInserisciDipendente">
     <div id="Amministrazione">
-          Area Contabilità
+          Area Magazzino
     </div>
       <div>
     <nav>    
             <ul id="Lista">
             <li><a href="./">Home</a> </li>
-            <li><a href="./OrdinaProdotto.jsp">Ordina Prodotti</a></li>
-            <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">Visualizza Flusso Economico</a></li>
-            <li><a href="./Help">Paga Stipendi</a></li>   
+            <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
+            <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
+            <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
+            <li><a href="./ModificaQuantita.jsp">Modifica Quantità</a></li>   
+            <li><a href="./RifornimentoProdotto.jsp">Rifornimento Prodotti</a></li>  
         </ul>
     </nav>
     </div>
-    <div id="containerB">
-    <div id="containerB1">
-    <div id="ordina">Ordina Prodotti</div>
-    <div id="visualizza">Visualizza Flusso Economico</div>
-    </div>
-    <div id="containerB2">
-    <div id="aggiungi">Aggiungi Spesa</div>
-    <div id="paga">Paga Stipendi</div>
-    </div>
-    </div>
-    <form action="Login" method="post">
-      <input type="hidden" name="logout" value="true">
-      <button id="logout" type="submit">Logout</button>
-    </form>
+    <div id="corpo" align="center">
+    	<br>
+		<h3>Gestione Ordini</h3>
+		<%
+			ManageOrdine mo=new ManageOrdine();
+			ArrayList<Ordine> ordini=mo.getInevasi();//Per provare il css mettere mo.getOrdini();
+		%>
+			<table>
+			<tr>
+			<th>Id Ordine</th>
+			<th>Stato</th><br>
+			<th>Data</th><br>
+			<th>Indirizzo Spedizione</th>
+			<th>Totale</th>
+			</tr>
+			<%for(int i=0;i<ordini.size();i++){%>
+			<form  action="GestisciOrdine"  method="post">
+			<tr>
+			<td><%=ordini.get(i).getIdOrdine()%></td>
+			<td>
+			<input id="ordine<%=i%>" type="hidden" name="idOrdine" value="<%=ordini.get(i).getIdOrdine()%>" >
+			<input id="cliente<%=i%>" type="hidden" name="idCliente" value="<%=ordini.get(i).getIdCliente()%>" >
+			<%=ordini.get(i).getStato()%></td>
+			<td><%=ordini.get(i).getData()%></td>
+			<td><%=ordini.get(i).getIndirizzoSpedizione()%></td>
+			<td><%=ordini.get(i).getTotale()%></td>
+			<td><button id="evadi" type="submit" name="cambiaStato" value="true">evadi</button></td>
+			<td><button class="dettagli" id="<%=i%>"type="button" >dettagli</button></td>
+			</tr>
+			</form>
+			
+			<%}%>
+			</table>
+	</div>
+	<%int k=0;%>
+    <%@include file="dettagliordine.jsp" %>
 </article>
 </article>
 </article>

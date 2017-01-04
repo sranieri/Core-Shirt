@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  * Servlet implementation class ServletLogin
@@ -37,6 +39,7 @@ public class ServletLogin extends HttpServlet {
 			request.getSession().setAttribute("Magazzino", new Boolean(false));
 			request.getSession().setAttribute("AdminDip", new Boolean(false));
 			request.setAttribute("DipendenteSession",null);
+			request.getSession().invalidate();
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -51,6 +54,7 @@ public class ServletLogin extends HttpServlet {
 		else{
 		if(tipo.equals("Contabilita")){
 			request.getSession().setAttribute("Contabile", new Boolean(true));
+			request.getSession().setAttribute("rifornimenti", new ManageRifornimento().getOrdini());
 			path="/HomeContabile.jsp";
 		}
 		else if(tipo.equals("Magazzino")){
