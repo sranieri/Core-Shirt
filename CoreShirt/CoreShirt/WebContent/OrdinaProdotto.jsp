@@ -4,8 +4,17 @@
     
 <%
    ArrayList<?> rif=(ArrayList<?>)session.getAttribute("rifornimenti");
+   Dipendente idDip=(Dipendente)session.getAttribute("DipendenteSession");
 %>
- <%@page import="java.util.*,model.Rifornimento,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("Contabile");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.*,model.Rifornimento,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -57,11 +66,11 @@
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Ordina Prodotti</a></li>
-            <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">Visualizza Flusso Economico </a></li>
-            <li><a href="./Help">Aggiungi Straordinari </a></li>   
+            <li><a href="./HomeContabile.jsp">Home</a> </li>
+            <li><a href="./OrdinaProdotto.jsp">Ordina Prodotti</a></li>
+            <li><a href="./AggiungiSpesa.jsp">Aggiungi Spesa</a> </li>
+            <li><a href="./FlussoEconomico?tipo=1">Visualizza Flusso Economico</a></li>
+            <li><a href="./PagaStipendi.jsp">Paga Stipendi</a></li>   
         </ul>
     </nav>
     </div>
@@ -110,6 +119,8 @@
 </div>
 <div id="form">
 <form name="InsertProdotto" action="ServletInsertArticolo" enctype="multipart/form-data" method="post">
+	<input type="hidden" name="rifornimento" value="1">
+	<input type="hidden" name="id" value="<%=idDip.getId()%>">
 	Inserisci il Nome
 	<input id="nome" type="text" name="insertNome"><br>
 	

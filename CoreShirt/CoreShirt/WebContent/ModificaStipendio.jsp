@@ -3,8 +3,17 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
+    Dipendente dip=(Dipendente) session.getAttribute("dipendente");
 %>
- <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("AdminDip");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.*,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -20,21 +29,21 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
-    <script>
-       $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
-		});
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$('#Dettagli').hide();
+    	$('.item').change(function(){
+    		var num=$('.item').val();
+    		$.ajax({
+    			type:"get",
+    			url:"GestisciDipendente?dettagli="+num+"&tipo=2",
+    			success:function(result){
+    				$('#Dettagli').load("./ModificaStipendio.jsp #Dettagli");
+    				$('#Dettagli').fadeIn();
+    			}
+    		});
+    	})
+    })
 	</script>
 </head>
 <body>
@@ -70,7 +79,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
             <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
             <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
-            <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
+            <li><a href="./FlussoEconomico?tipo=2">Visualizza Flusso Economico</a></li>   
         </ul>
     </nav>
     </div>
@@ -82,7 +91,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <form name="ModificaStipendio" action="GestisciDipendente" method="post">
      
 	Seleziona Dipendente
-	<select id="dipendente" name="dip">
+	<select id="dipendente" name="dip" class="item">
 	<%
        Iterator<?> it1=d.iterator();
           while(it1.hasNext()){
@@ -96,6 +105,17 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 	<input id="stipendio" type="text" name="stipendio"><br>
 	<br><div id="modifica"><button id="submit" type="submit">Modifica</button></div>
 </form>
+<div id="Dettagli">
+	<%if(dip!=null) {%>
+	<div> Nome : <%=dip.getNome()%></div>
+	<div>Cognome : <%=dip.getCognome()%></div>
+ 	<div>Cf : <%=dip.getCodiceFiscale()%></div>
+	<div>Stipendio : <%=dip.getStipendio()%></div>
+	<div>Tipo : <%=dip.getTipo()%></div>
+	<div>Username : <%=dip.getUsername()%></div>
+	<div>Password : <%=dip.getPassword()%></div>
+    <%} %>
+    </div>
 </div>
 <br>
 </article>

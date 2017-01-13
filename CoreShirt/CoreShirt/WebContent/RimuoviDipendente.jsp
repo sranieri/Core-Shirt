@@ -5,7 +5,15 @@
   ArrayList<?> d=(ArrayList<?>) session.getAttribute("dipendenti");
   Dipendente dip=(Dipendente) session.getAttribute("dipendente");
 %>
- <%@page import="java.util.*,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("AdminDip");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.*,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -23,6 +31,7 @@
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
     $(document).ready(function(){
+    	$('#Dettagli').hide();
     	$('.item').change(function(){
     		var num=$('.item').val();
     		$.ajax({
@@ -30,6 +39,7 @@
     			url:"GestisciDipendente?dettagli="+num,
     			success:function(result){
     				$('#Dettagli').load("./RimuoviDipendente.jsp #Dettagli");
+    				$('#Dettagli').fadeIn();
     			}
     		});
     	})
@@ -56,7 +66,7 @@
             <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
             <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
             <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
-            <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
+            <li><a href="./FlussoEconomico?tipo=2">Visualizza Flusso Economico</a></li>   
         </ul>
     </nav>
 </div>
@@ -83,8 +93,6 @@
  	<div>Cf : <%=dip.getCodiceFiscale()%></div>
 	<div>Stipendio : <%=dip.getStipendio()%></div>
 	<div>Tipo : <%=dip.getTipo()%></div>
-	<div>Username : <%=dip.getUsername()%></div>
-	<div>Password : <%=dip.getPassword()%></div>
     <%} %>
     </div>
    </div>

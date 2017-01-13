@@ -9,7 +9,7 @@
       return;
      }
 %>
- <%@page import="java.util.*,model.Articolo,control.ManageDipendente,control.DbConnect" %>
+ <%@page import="java.util.*,model.Articolo,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -27,20 +27,14 @@
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
-       $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
-		});
+    $(document).ready(function(){
+    	$("#anteprima").hide();
+    	$('#insertarticolo').change(function(){
+    		var num=$('#insertarticolo').val();
+    		$('#anteprima>img').attr('src','Immagini/Magliette/Maglietta('+num+').jpg');
+    		$('#anteprima').show();
+    	})
+    })
 	</script>
 </head>
 <body>
@@ -75,7 +69,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./HomeMagazzino.jsp">Home</a> </li>
             <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
             <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
-            <li><a href="./Evadi.jsp">Evadi Ordini</a></li>
+            <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
             <li><a href="./ModificaQuantita.jsp">Modifica Quantità</a></li>   
             <li><a href="./RifornimentoProdotto.jsp">Rifornimento Prodotti</a></li>
  
@@ -130,6 +124,9 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 	
 	<br><div id="rimuovi"><button id="submit" type="submit">Rimuovi</button></div>
 </form>
+</div>
+<div id="anteprima">
+    <img alt="seleziona articolo" src="0.png">
 </div>
 <br>
 </article>

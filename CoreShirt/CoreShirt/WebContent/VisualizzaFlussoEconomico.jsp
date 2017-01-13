@@ -1,18 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<Ordine> ordini=(ArrayList<Ordine>)request.getAttribute("ListaOrdini");
+    ArrayList<?> richieste=(ArrayList<?>)request.getAttribute("ListaRichieste");
+    ArrayList<?> stipendi=(ArrayList<?>)request.getAttribute("ListaStipendi");
+    ArrayList<?> spese=(ArrayList<?>)request.getAttribute("ListaSpese");
+%>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("AdminDip");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
 <%@page
-	import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect"%>
+	import="java.util.ArrayList,model.Spesa,model.Ordine,model.Rifornimento,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
 <script src="Script/jquery.js"></script>
 <script src="Script/loadmore.js"></script>
+<script src="Script/descrizione.js"></script>
 <link rel="icon" href="./Immagini/sprite0.png" />
 <link rel="stylesheet" href="./CSS/base.css" type="text/css">
 <link rel="stylesheet" href="./CSS/home.css" type="text/css">
 <link rel="stylesheet" href="./CSS/VisualizzaFlussoEconomico.css" type="text/css">
 <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
+<link rel="stylesheet" href="./CSS/Checkout.css" type="text/css">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Language" content="it-IT" />
 <meta name="description"
@@ -22,18 +38,8 @@
 <title>Core Shirt: The Best T-Shirts series</title>
 <script>
        $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
+    	   $("#popup").hide();
+   		   $("#veil").hide();
 		});
 	</script>
 </head>
@@ -66,12 +72,12 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 					<div>
 						<nav>
 							<ul id="Lista">
-								<li><a href="./HomeDipendenti.jsp">Home</a> </li>
-                                <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
-            					<li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
-            					<li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
-            					<li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>
-							</ul>
+					            <li><a href="./HomeDipendenti.jsp">Home</a> </li>
+					            <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
+					            <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
+					            <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
+					            <li><a href="./FlussoEconomico?tipo=2">Visualizza Flusso Economico</a></li>   
+					        </ul>
 						</nav>
 					</div>
 
@@ -79,7 +85,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 						<div id="sezione2">Visualizza Flusso Economico</div>
 					</div>
 					<div id="containerTab">
-						<table id="table">
+					<table id="table">
 
 							<tr>
 								<td id="Flusso">Elenco Entrate</td>
@@ -88,21 +94,70 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 							</tr>
 							<tr>
 								<td><div class="box">
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
-										<div class="box-inner">il contenuto qui</div>
+								    <div class="box-inner">Ordini</div>
+										<%int i;
+										  if(ordini!=null){
+											  if(ordini.size()==0){%>
+										<div class="box-inner">Non sono presenti ordini</div>
+										<%     }
+											  else{
+												  for(i=0;i<ordini.size();i++){
+										%>
+										<div class="ordini"><%=ordini.get(i).toString2() %></div>
+										<%           } 
+												  }
+										  }%>
 									</div></td>
 									<td>                          </td>
 								<td><div class="box">
-										<div class="box-inner">il contenuto qu  2i</div></td>
+								     <div class="box-inner">Richieste di Rifornimento</div>
+								     <%
+										  if(richieste!=null){
+											  if(richieste.size()==0){%>
+										<div class="box-inner">Non sono presenti richieste di rifornimento</div>
+										<%     }
+											  else{
+												  for(i=0;i<richieste.size();i++){
+													  Rifornimento x=(Rifornimento)richieste.get(i);
+										%>
+										<div class="ordini"><%=x.toString2(i+1) %></div>
+										<%           } 
+												  }
+										  }%>
+									 <div class="box-inner">Stipendi Pagati</div>
+									 <%
+										  if(stipendi!=null){
+											  if(stipendi.size()==0){%>
+										<div class="box-inner">Non sono presenti stipendi pagati</div>
+										<%     }
+											  else{
+												  for(i=0;i<stipendi.size();i++){
+													  Dipendente x=(Dipendente)stipendi.get(i);
+										%>
+										<div class="ordini"><%=x.toString2() %></div>
+										<%           } 
+												  }
+										  }%>
+									  <div class="box-inner">Spese varie</div>
+									  <%
+										  if(spese!=null){
+											  if(spese.size()==0){%>
+										<div class="box-inner">Non sono presenti spese impreviste</div>
+										<%     }
+											  else{
+												  for(i=0;i<spese.size();i++){
+													  Spesa x=(Spesa)spese.get(i);
+										%>
+										<div class="ordini"><%=x.toString2(i+1) %><button class="dettagliS" id="<%=x.getDescrizione()%>">...</button></div>
+										<%           } 
+												  }
+										  }%>
+										  </div></td>
 							</tr>
 						</table>
 					</div>
 	</div>
+	<%@include file="descrizione.jsp" %>
 
 	<footer>
 		<div class="container">

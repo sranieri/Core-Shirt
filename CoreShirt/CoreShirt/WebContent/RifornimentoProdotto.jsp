@@ -2,6 +2,7 @@
 
     pageEncoding="UTF-8"%>
 <% Collection<?> articoli=(Collection<?>) session.getAttribute("articoli");
+   ArrayList<?> rifornimento=(ArrayList<?>) session.getAttribute("rifornimento");
    Dipendente dip=(Dipendente)session.getAttribute("DipendenteSession");
    Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
    if ((adminRoles == null) || (!adminRoles.booleanValue()))
@@ -10,7 +11,7 @@
       return;
      }
 %>
- <%@page import="java.util.*,model.Articolo,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+ <%@page import="java.util.*,model.Articolo,model.TShirt,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -27,6 +28,16 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
+    <script>
+    $(document).ready(function(){
+    	$("#anteprima").hide();
+    	$('#insertarticolo').change(function(){
+    		var num=$('#insertarticolo').val();
+    		$('#anteprima>img').attr('src','Immagini/Magliette/Maglietta('+num+').jpg');
+    		$('#anteprima').show();
+    	})
+    })
+	</script>
 </head>
 <body>
 
@@ -60,7 +71,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./HomeMagazzino.jsp">Home</a> </li>
             <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
             <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
-            <li><a href="./Evadi.jsp">Evadi Ordini</a></li>
+            <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
             <li><a href="./ModificaQuantita.jsp">Modifica Quantità</a></li>   
             <li><a href="./RifornimentoProdotto.jsp">Rifornimento Prodotti</a></li>
         </ul>
@@ -69,7 +80,6 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 
 <div id="sezione"> 
 <div id="sezione2">Richiedi Rifornimento Prodotto </div></div>
-
 <div id="form">
 <form name="InsertRifornimento" action="ServletRifornimento" method="post">
 	<input type="hidden" name="dipendente" value="<%=dip.getId()%>">
@@ -124,6 +134,19 @@ function myFunction() {
 	
 	<br><div id="richiedi"><button id="submit" type="submit">Richiedi</button></div>
 </form>
+</div>
+<div id="anteprima">
+    <img alt="seleziona articolo" src="0.png">
+</div>
+<div id="lista">Prodotti da rifornire
+<div>Codice, sesso, taglia, colore, quantità</div>
+<%if(rifornimento!=null && rifornimento.size()>0){ 
+     for(int i=0;i<rifornimento.size();i++){
+    	 TShirt x=(TShirt) rifornimento.get(i);
+     %>
+<div class="elementL"><%=x.getidArticolo()+" "+x.getSesso()+" "+x.getTaglia()+" "+x.getColore()+" "+x.getquantita()%></div>
+<%}
+} %>
 </div>
 <br>
 </article>

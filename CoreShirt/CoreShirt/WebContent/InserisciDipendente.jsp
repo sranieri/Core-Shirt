@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("AdminDip");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -69,7 +77,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./InserisciDipendente.jsp">Aggiungi Dipendente</a></li>
             <li><a href="./RimuoviDipendente.jsp">Rimuovi Dipendente</a> </li>
             <li><a href="./ModificaStipendio.jsp">Modifica Stipendio</a></li>
-            <li><a href="./VisualizzaFlussoEconomico.jsp">Visualizza Flusso Economico</a></li>   
+            <li><a href="./FlussoEconomico?tipo=2">Visualizza Flusso Economico</a></li>   
         </ul>
     </nav>
     </div>

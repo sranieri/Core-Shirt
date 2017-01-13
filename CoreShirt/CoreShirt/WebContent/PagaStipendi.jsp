@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("Contabile");
+    Dipendente dip=(Dipendente) session.getAttribute("dipendente");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -17,21 +26,21 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
-    <script>
-       $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
-		});
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$('#Dettagli').hide();
+    	$('.item').change(function(){
+    		var num=$('.item').val();
+    		$.ajax({
+    			type:"get",
+    			url:"GestisciDipendente?dettagli="+num+"&tipo=1",
+    			success:function(result){
+    				$('#Dettagli').load("./PagaStipendi.jsp #Dettagli");
+    				$('#Dettagli').fadeIn();
+    			}
+    		});
+    	})
+    })
 	</script>
 </head>
 <body>
@@ -41,9 +50,9 @@
     <article id="articolo" >
 		<script src="checkForm.js"></script>
 
-<%!/*
+<%!
 ManageDipendente md=new ManageDipendente();
-ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
+ArrayList<Dipendente> dipendenti=md.getDipendenti();
 %>
 
 <article>
@@ -63,11 +72,11 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Ordina Prodotto</a></li>
-            <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">Visualizza Flusso Economico o</a></li>
-            <li><a href="./Help">Paga Stipendi</a></li>   
+            <li><a href="./HomeContabile.jsp">Home</a> </li>
+            <li><a href="./OrdinaProdotto.jsp">Ordina Prodotti</a></li>
+            <li><a href="./AggiungiSpesa.jsp">Aggiungi Spesa</a> </li>
+            <li><a href="./FlussoEconomico?tipo=1">Visualizza Flusso Economico</a></li>
+            <li><a href="./PagaStipendi.jsp">Paga Stipendi</a></li>   
         </ul>
     </nav>
     </div>
@@ -76,19 +85,33 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Paga Stipendi </div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
-
-
+<form name="PagaDipendente" action="Paga" method="post">
+<input type="hidden" name="paga" value="">
    Seleziona Dipendente
-	<select id="tipo" name="tipo">
-       
-   </select><br>
-   
-	
-	
-	<br><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Paga </button>
+	<select id="dipendente" name="dipendente" class="item">
+       <%for(int i=0;i<dipendenti.size();i++){
+    	   Dipendente x=dipendenti.get(i);
+    	   %>
+    	   <option value="<%=x.getId()%>"><%=x.getNome()+" "+x.getCognome()+" "+x.getTipo()%></option>
+       <%}%>
+   </select>
+  <br><button id="submit" type="submit">Paga </button>
+</form>
+<div id="Dettagli">
+	<%if(dip!=null) {%>
+	<div> Nome : <%=dip.getNome()%></div>
+	<div>Cognome : <%=dip.getCognome()%></div>
+ 	<div>Cf : <%=dip.getCodiceFiscale()%></div>
+	<div>Stipendio : <%=dip.getStipendio()%></div>
+	<div>Tipo : <%=dip.getTipo()%></div>
+    <%} %>
+    </div>
+</div>
 
-
+<div id="form2">
+<form name="PagaDipendente" action="Paga" method="post">
+		<input type="hidden" name="paga" value="tutti">
+		<button id="submit" type="submit">Paga Tutti</button>
 </form>
 </div>
 <br>

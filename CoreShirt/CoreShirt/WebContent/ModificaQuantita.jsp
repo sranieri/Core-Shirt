@@ -9,7 +9,7 @@
       return;
      }
 %>
- <%@page import="java.util.*,model.Articolo,control.ManageDipendente,control.DbConnect" %>
+ <%@page import="java.util.*,model.Articolo,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -69,7 +69,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
             <li><a href="./HomeMagazzino.jsp">Home</a> </li>
             <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
             <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
-            <li><a href="./Evadi.jsp">Evadi Ordini</a></li>
+            <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
             <li><a href="./ModificaQuantita.jsp">Modifica Quantità</a></li>   
             <li><a href="./RifornimentoProdotto.jsp">Rifornimento Prodotti</a></li>
  
