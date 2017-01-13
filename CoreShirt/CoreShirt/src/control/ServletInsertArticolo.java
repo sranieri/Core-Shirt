@@ -16,7 +16,11 @@ import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import control.manage.ManageArticolo;
+import control.manage.ManageRifornimento;
+import control.manage.ManageTshirt;
 import model.Articolo;
+import model.Rifornimento;
 import model.TShirt;
 
 /**
@@ -51,20 +55,39 @@ public class ServletInsertArticolo extends HttpServlet {
 		doGet(request, response);
 		
 		ManageArticolo ma=new ManageArticolo();
+		if(request.getParameter("rifornimento")!=null){
+			if(request.getParameter("insertNome")!=""&&request.getParameter("insertCategoria")!=""&&request.getParameter("insertPrezzo")!=""&&request.getParameter("insertQuantita")!=""){
+				Articolo a=new Articolo(request.getParameter("insertNome"),12,0,request.getParameter("insertCategoria"));
+				int num;
+				if((num=ma.insertArticolo(a))>0) System.out.println("Inserimento effettuato");
+				else System.out.println("Inserimento non effettuato");
+				TShirt t= new TShirt(ma.getArticolo(num),request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),Integer.parseInt(request.getParameter("insertQuantita")));
+				new ManageTshirt().insertTshirt(t);
+				ma.updateQuantita(""+num, ma.getQuantita(num)+t.getquantita());
+				int idDipendente=Integer.parseInt(request.getParameter("id"));
+				Rifornimento r=new Rifornimento(""+idDipendente,""+num, request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),request.getParameter("insertQuantita"));
+				new ManageRifornimento().insertRifornimento(r,"evaso");
+				response.sendRedirect("OrdinaProdotto.jsp");
+
+			}
+		}
+		else{
 		if(request.getParameter("insertNome")!=""&&request.getParameter("insertCategoria")!=""&&request.getParameter("insertPrezzo")!=""&&request.getParameter("insertQuantita")!=""){
-			Articolo a=new Articolo(request.getParameter("insertNome"),12,0,request.getParameter("insertCategoria"));
+			Articolo a=new Articolo(request.getParameter("insertNome"),Double.parseDouble(request.getParameter("insertPrezzo")),0,request.getParameter("insertCategoria"));
 			int num;
 			if((num=ma.insertArticolo(a))>0) System.out.println("Inserimento effettuato");
 			else System.out.println("Inserimento non effettuato");
 			if(request.getPart("upfile")!=null)
 			   {Upload(request.getPart("upfile"),num);}
+			if(request.getPart("anteprima")!=null)
+			   {Upload(request.getPart("anteprima"),num,request.getParameter("sesso"));}
 			TShirt t= new TShirt(ma.getArticolo(num),request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),Integer.parseInt(request.getParameter("insertQuantita")));
 			new ManageTshirt().insertTshirt(t);
 			ma.updateQuantita(""+num, ma.getQuantita(num)+t.getquantita());
 			response.sendRedirect("InserisciProdotto.jsp");
 
 		}
-		
+		}
 	}
 
 	private void Upload(Part filePart,int num) {
@@ -74,6 +97,26 @@ public class ServletInsertArticolo extends HttpServlet {
 			is = filePart.getInputStream();
 			String fileExt = fileName.substring(fileName.lastIndexOf(".")); // fileExt è un oggetto di tipo String
 	        String destinationPath = getServletContext().getInitParameter("filepath") +num+fileExt;
+	        OutputStream os = new FileOutputStream(destinationPath);
+			IOUtils.copy(is, os);
+			is.close();
+	        os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void Upload(Part filePart,int num,String str) {
+        InputStream is;
+		try {
+			is = filePart.getInputStream();
+			String destinationPath="";
+			if(str.equals("M")){
+				destinationPath = getServletContext().getInitParameter("filepath") +"Maglietta("+num+").jpg";
+			}
+			else{
+				destinationPath = getServletContext().getInitParameter("filepath") +"Maglietta("+num+")F.jpg";	
+			}
 	        OutputStream os = new FileOutputStream(destinationPath);
 			IOUtils.copy(is, os);
 			is.close();

@@ -1,8 +1,10 @@
 package model;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-public class Rifornimento {
+public class Rifornimento implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	public String idRifornimento,stato,idDipendente;
 	public TShirt tshirt;
 	public double totale;
@@ -27,6 +29,10 @@ public class Rifornimento {
 		this.dataRichiesta=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		this.dataEffettuazione=null;
 		this.dataConsegna=null;
+	}
+
+	public Rifornimento() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getIdRifornimento(){
@@ -93,8 +99,16 @@ public class Rifornimento {
 		this.tshirt = tshirt;
 	}
 
-	public void setIdDipendente(String idDipendente) {
-		this.idDipendente = idDipendente;
+	@Override
+	public String toString() {
+		return "Rifornimento [tshirt=" + tshirt + ", totale=" + totale + ", dataRichiesta=" + dataRichiesta
+				+ ", dataEffettuazione=" + dataEffettuazione + ", dataConsegna=" + dataConsegna + "]";
 	}
+	
+	public String toString2(int i) {
+		return "Richiesta : "+i+", data richiesta : " + dataRichiesta+ ", data accettazione : " + dataEffettuazione
+				+ ", totale : " + totale;
+	}
+	
 	
 }

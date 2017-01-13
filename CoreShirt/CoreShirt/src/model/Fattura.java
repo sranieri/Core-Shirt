@@ -1,7 +1,10 @@
 package model;
+import java.io.Serializable;
 import java.util.Date;
-public class Fattura {
-	private String idFattura,indirizzoSpedizione,pagamento;
+public class Fattura implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	private String idFattura,indirizzoSpedizione;
 	Ordine ordine;
 	private double iva,totale;
 	private Date data;
@@ -40,13 +43,6 @@ public class Fattura {
 		this.totale=totale;
 	}
 	
-	public String getPagamento(){
-		return pagamento;
-	}
-	
-	public void setPagamento(String pagamento){
-		this.pagamento=pagamento;
-	}
 	
 	public double getIva(){
 		return iva;

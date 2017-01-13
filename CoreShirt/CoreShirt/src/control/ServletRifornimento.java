@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.manage.ManageRifornimento;
 import model.Rifornimento;
 
 /**
@@ -31,7 +32,7 @@ public class ServletRifornimento extends HttpServlet {
 		if(request.getParameter("evadi")!=null){
 			String idRifornimento=request.getParameter("richiesta");
 			new ManageRifornimento().evadi(idRifornimento);
-			response.sendRedirect("HomeContabilita.jsp");
+			response.sendRedirect("HomeContabile.jsp");
 		}
 		else{
 		String idDipendente=request.getParameter("dipendente");

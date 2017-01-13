@@ -1,14 +1,18 @@
 package model;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-public class Spesa {
+public class Spesa implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	public String idSpesa;
 	public String descrizione;
-	public Date data;
+	public String data;
 	public double ammontare;
 	
 	public Spesa(double ammontare,Date data,String descrizione){
 		this.ammontare=ammontare;
-		this.data=data;
+		this.data=new SimpleDateFormat("yyyy-MM-dd").format(data);
 		this.descrizione=descrizione;
 	}
 	
@@ -36,12 +40,17 @@ public class Spesa {
 		this.descrizione=descrizione;
 	}
 	
-	public Date getData(){
+	public String getData(){
 		return data;
 	}
 	
 	public void setDate(Date data){
-		this.data=data;
+		this.data=new SimpleDateFormat("yyyy-MM-dd").format(data);
 	}
 
+	public String toString2(int i) {
+		return "Spesa : " + i + ", data : " + data + ", ammontare : " + ammontare;
+	}
+
+	
 }

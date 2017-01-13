@@ -1,9 +1,19 @@
 package model;
 
-public class Dipendente {
+import java.io.Serializable;
+
+public class Dipendente implements Serializable{
 	
-	String nome,cognome,codiceFiscale,tipo,username,password,id;
+	private static final long serialVersionUID = 1L;
+	private String nome,cognome,codiceFiscale,tipo,username,password,id,dataP;
 	double stipendio;
+	public String getDataP() {
+		return dataP;
+	}
+
+	public void setDataP(String dataP) {
+		this.dataP = dataP;
+	}
 	
 	public Dipendente(){}
 	
@@ -70,14 +80,18 @@ public class Dipendente {
 	public void setPassword(String password){
 		this.password=password;
 	}
-	
-	public void evadiOrdine(Ordine ordine){
-		
-	}
-	
-	public void evadiRifornimento(Rifornimento rifornimento){
-		
-	}
-	
 
+	public String toString2() {
+		return "Dipendente: " + nome + " " + cognome + ", codiceFiscale : "
+				+ codiceFiscale + ", stipendio : " + stipendio;
+	}
+
+	@Override
+	public String toString() {
+		return "Dipendente [nome=" + nome + ", cognome=" + cognome + ", codiceFiscale=" + codiceFiscale + ", tipo="
+				+ tipo + ", username=" + username + ", password=" + password + ", id=" + id + ", stipendio=" + stipendio
+				+ "]";
+	}
+	
+	
 }

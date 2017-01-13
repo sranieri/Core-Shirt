@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.manage.ManageDipendente;
 import model.Dipendente;
 
 import javax.servlet.RequestDispatcher;
@@ -41,7 +42,19 @@ public class GestisciDipendente extends HttpServlet {
 			Dipendente x=md.getDipendente(dettagli);
 			request.getSession().removeAttribute("dipendente");
 			request.getSession().setAttribute("dipendente",x);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RimuoviDipendente.jsp");
+			String tipo=request.getParameter("tipo");
+			RequestDispatcher dispatcher;
+			if(tipo!=null){
+				if(tipo.equals("2")){
+					dispatcher = getServletContext().getRequestDispatcher("/ModificaStipendio.jsp");
+				}
+				else{
+					dispatcher = getServletContext().getRequestDispatcher("/PagaStipendi.jsp");	
+				}
+			}
+			else{
+				dispatcher = getServletContext().getRequestDispatcher("/RimuoviDipendente.jsp");
+			}
 			dispatcher.forward(request, response);
 		}
 		if(request.getParameter("delete")!=null){

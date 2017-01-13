@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +17,11 @@ import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import control.manage.DatabaseConnection;
+import control.manage.ManageArticolo;
+import control.manage.ManageCarrello;
+import control.manage.ManageOrdine;
+import control.manage.ManageTshirt;
 import model.Cart;
 import model.TShirt;
 
@@ -58,6 +61,23 @@ public class Controller extends HttpServlet {
 				if (action.equalsIgnoreCase("dettagli")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					String sesso=(String)request.getParameter("sesso");
+					request.removeAttribute("product");
+					request.setAttribute("product", art.doRetrieveByKey(id,sesso));
+					path="/dettagli.jsp";
+			    }
+				else if(action.equalsIgnoreCase("disponibilita")){
+			    	int id = Integer.parseInt(request.getParameter("id"));
+					String sesso=(String)request.getParameter("sesso");
+					String nome=(String)request.getParameter("nome");
+					String colore=(String)request.getParameter("color");
+					String taglia=(String)request.getParameter("taglia");
+					int prezzo = Integer.parseInt(request.getParameter("prezzo"));
+					System.out.println("p");
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+				    TShirt th=new TShirt(id, sesso, nome, colore, taglia, prezzo, quantity);
+			    	ArrayList<TShirt> ts=new ManageTshirt().getTshirts();
+					int quantita=ts.get(ts.lastIndexOf(th)).getquantita();
+					request.getSession().setAttribute("disponibilita",quantita);
 					request.removeAttribute("product");
 					request.setAttribute("product", art.doRetrieveByKey(id,sesso));
 					path="/dettagli.jsp";
@@ -147,7 +167,7 @@ public class Controller extends HttpServlet {
 					x.add((String)request.getParameter("Nome"));
 					x.add((String)request.getParameter("Cognome"));
 					x.add((String)request.getParameter("Recapito"));
-					x.add((String)request.getParameter("Indirizzo"));
+					x.add((String)request.getParameter("Indirizzo")+", "+request.getParameter("citta"));
 					x.add((String)request.getParameter("CAP"));
 					x.add(metodo);
 					x.add(pagamento);

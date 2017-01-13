@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import control.manage.ManageArticolo;
+import control.manage.ManageDipendente;
+import control.manage.ManageRifornimento;
+import control.manage.ManageTshirt;
+
 /**
  * Servlet implementation class ServletLogin
  */
@@ -54,7 +59,7 @@ public class ServletLogin extends HttpServlet {
 		else{
 		if(tipo.equals("Contabilita")){
 			request.getSession().setAttribute("Contabile", new Boolean(true));
-			request.getSession().setAttribute("rifornimenti", new ManageRifornimento().getOrdini());
+			request.getSession().setAttribute("rifornimenti", new ManageRifornimento().getInevasi());
 			path="/HomeContabile.jsp";
 		}
 		else if(tipo.equals("Magazzino")){
@@ -64,6 +69,7 @@ public class ServletLogin extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
 			path="/HomeMagazzino.jsp";
 		}
 		else if(tipo.equals("AdminDip")){

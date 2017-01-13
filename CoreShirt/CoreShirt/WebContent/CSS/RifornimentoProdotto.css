@@ -20,3 +20,12 @@
 	font-size: 25px;
 	background-color: #949498;
 	}
+#form,#anteprima{
+	display: inline-block;
+}
+
+#anteprima img{
+	width: 325px;
+	height: 325px;
+	margin-bottom: -25px;
+}

@@ -1,7 +1,10 @@
 package model;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	public String idCliente,nome,cognome,email,recapito;
 	
 	public Cliente(String idCliente,String nome,String cognome,String email,String recapito){
@@ -52,8 +55,8 @@ public class Cliente {
 		return recapito;
 	}
 	
-	public String setRecapito(String recapito){
-		return recapito;
+	public void setRecapito(String recapito){
+		this.recapito=recapito;
 	}
 	
 	
