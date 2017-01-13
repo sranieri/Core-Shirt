@@ -1,7 +1,7 @@
 <div id="veil">
 <div id="popup">
   <div class="Messaggio">
-    Articolo aggiunto al carrello
+    <%=aggiunto%>
   </div>
 </div>
 </div>

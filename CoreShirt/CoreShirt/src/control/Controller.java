@@ -108,7 +108,30 @@ public class Controller extends HttpServlet {
 					String taglia=(String)request.getParameter("taglia");
 					int prezzo = Integer.parseInt(request.getParameter("prezzo"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
-				    cart.addItem(new TShirt(id, sesso, nome, colore, taglia, prezzo, quantity));
+					TShirt t=new TShirt(id, sesso, nome, colore, taglia, prezzo, quantity);
+				    ArrayList<TShirt> arr=cart.getProducts();
+				    if(arr.contains(t)){
+				    	int quan=arr.get(arr.lastIndexOf(t)).getquantita();
+				    	ArrayList<TShirt> ts=new ManageTshirt().getTshirts();
+						int quantita=ts.get(ts.lastIndexOf(t)).getquantita();
+						if(quantita<(quan+quantity)){
+							request.getSession().setAttribute("aggiunto", "Articolo non aggiunto disponibilità insufficiente");
+						}
+						else{
+							cart.addItem(t);
+							request.getSession().setAttribute("aggiunto", "Articolo aggiunto al carrello");
+						}
+				    }
+				    else{
+				    	ArrayList<TShirt> ts=new ManageTshirt().getTshirts();
+						int quantita=ts.get(ts.lastIndexOf(t)).getquantita();
+						if(quantita<quantity){
+							request.getSession().setAttribute("aggiunto", "Articolo non aggiunto disponibilità insufficiente");
+						}
+						else{
+							cart.addItem(t);
+							request.getSession().setAttribute("aggiunto", "Articolo aggiunto al carrello");
+						}}
 				    request.removeAttribute("product");
 					request.setAttribute("product", art.doRetrieveByKey(id,sesso));
 					path="/dettagli.jsp";

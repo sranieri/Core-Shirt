@@ -3,7 +3,9 @@
 <% Collection<?> products = (Collection<?>) request.getAttribute("products");
    Articolo product = (Articolo) request.getAttribute("product"); 
    Object quantita=request.getSession().getAttribute("disponibilita");
-   Cart cart = (Cart) request.getAttribute("cart");%>
+   Cart cart = (Cart) request.getAttribute("cart");
+   Object aggiunto=request.getSession().getAttribute("aggiunto");
+   %>
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Articolo,model.Cart"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
@@ -41,6 +43,7 @@
             }
             else{
         	$("#popup").hide();}
+            $(".disponibilita").hide();
             $(".colore").click(function(){
             	var colore=$('.colore:checked').val();
                 var taglia=$('.taglia:checked').val();
@@ -54,7 +57,8 @@
                 			type:"get",
                 			url: a,
                 			success:function(result){
-                				alert("ok");
+                				$(".disponibilita").load("./dettagli.jsp .disponibilita");
+                			    $(".disponibilita").show();
                 			}  
              	   })
                 }
@@ -72,7 +76,8 @@
                 			type:"get",
                 			url: a,
                 			success:function(result){
-                				alert("ok");
+                				$(".disponibilita").load("./dettagli.jsp .disponibilita");
+                			    $(".disponibilita").show();
                 			}  
              	   })
                 }
@@ -142,6 +147,7 @@
     
     </article>
         <div class="container-di-tutto">
+        <%if(product!=null) {%>
             <div class="maglia" ><img src="Immagini/Magliette/TiziM.png">
                 <img class="design-left" src="./Immagini/Magliette/<%=product.getidArticolo()%>.png">
                 <img class="design-right" src="./Immagini/Magliette/<%=product.getidArticolo()%>.png">
@@ -247,9 +253,12 @@
                 </div>
                 </form>
             </div>
+             <%} %>
+            <div class="disponibilita">disponibilità: <%=quantita%></div>
         </div>
     </div>
-    <div class="disponibilita">disponibilita: <%=quantita%></div>
+
+    
         <footer>
         <div class="container">
 		<div class="row">
