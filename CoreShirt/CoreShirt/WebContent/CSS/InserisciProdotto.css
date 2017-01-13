@@ -86,6 +86,7 @@ ul#Lista {
 	display: inline-block;
 	margin-bottom: 20px;
 	border: 2px solid black;
+	padding: 0px;
 	}
 #nuovo{
 	border:2px solid black;

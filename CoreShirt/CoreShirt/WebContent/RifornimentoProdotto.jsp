@@ -136,10 +136,10 @@ function myFunction() {
 </form>
 </div>
 <div id="anteprima">
-    <img alt="seleziona articolo" src="0.png">
+    <img alt="seleziona articolo" src="0.png" style="margin-bottom: -270px">
 </div>
 <div id="lista">Prodotti da rifornire
-<div>Codice, sesso, taglia, colore, quantità</div>
+<div id="dettagli">Codice, sesso, taglia, colore, quantità</div>
 <%if(rifornimento!=null && rifornimento.size()>0){ 
      for(int i=0;i<rifornimento.size();i++){
     	 TShirt x=(TShirt) rifornimento.get(i);

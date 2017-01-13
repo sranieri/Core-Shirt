@@ -27,5 +27,18 @@
 #anteprima img{
 	width: 325px;
 	height: 325px;
-	margin-bottom: -25px;
+	margin-bottom: -250px;
+}
+
+#lista{
+	border: 2px solid black;
+	width:30%;
+	
+}
+#dettagli{
+	border-top: 2px solid black;
+	margin-bottom:100px;
+}
+#form, #lista{
+	display:inline-table;
 }

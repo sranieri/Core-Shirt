@@ -89,3 +89,14 @@ ul#Lista {
 #rimuovi{
 	margin-bottom: 10px;
 }
+
+{
+#form,#anteprima{
+	display: inline-block;
+}
+
+#anteprima{
+	width: 325px;
+	height: 325px;
+	margin-bottom: -25px;
+}
