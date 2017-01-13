@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("Contabile");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -20,18 +28,18 @@
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
        $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
+		  $("#aggiungi").click(function(){
+			  location.href="./AggiungiSpesa.jsp";
+		  });
+		  $("#paga").click(function(){
+			  location.href="./PagaStipendi.jsp";
+		  });
+		  $("#ordina").click(function(){
+			  location.href="./OrdinaProdotto.jsp";
+		  });
+		  $("#visualizza").click(function(){
+			  location.href="./FlussoEconomico?tipo=1";
+		  });
 		});
 	</script>
 </head>
@@ -64,11 +72,11 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
+            <li><a href="./HomeContabile.jsp">Home</a> </li>
             <li><a href="./OrdinaProdotto.jsp">Ordina Prodotti</a></li>
-            <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">Visualizza Flusso Economico</a></li>
-            <li><a href="./Help">Paga Stipendi</a></li>   
+            <li><a href="./AggiungiSpesa.jsp">Aggiungi Spesa</a> </li>
+            <li><a href="./FlussoEconomico?tipo=1">Visualizza Flusso Economico</a></li>
+            <li><a href="./PagaStipendi.jsp">Paga Stipendi</a></li>   
         </ul>
     </nav>
     </div>

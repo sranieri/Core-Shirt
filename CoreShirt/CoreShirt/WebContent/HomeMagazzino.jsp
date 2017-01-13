@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+if ((adminRoles == null) || (!adminRoles.booleanValue()))
+  {	
+   response.sendRedirect("./Management");
+   return;
+  }
+%>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -20,18 +28,21 @@
     <title>Core Shirt: The Best T-Shirts series</title>
     <script>
        $(document).ready(function() {
-		  $(".element").mouseover(function() {
-			 this.animate({
-				height : "+=20px",
-				width : "+=20px"
-				});
-			});
-		   $(".btn2").click(function() {
-			  $("#p1").animate({
-				height : "-=20px",
-				width : "-=20px"
-				});
-			});
+		  $("#inserisci").click(function(){
+			  location.href="./InserisciProdotto.jsp";
+		  });
+		  $("#rimuovi").click(function(){
+			  location.href="./RimuoviProdotto.jsp";
+		  });
+		  $("#evadi").click(function(){
+			  location.href="./EvadiOrdine.jsp";
+		  });
+		  $("#modifica").click(function(){
+			  location.href="./ModificaQuantita.jsp";
+		  });
+		  $("#rifornimento").click(function(){
+			  location.href="./RifornimentoProdotto.jsp";
+		  });
 		});
 	</script>
 </head>
@@ -64,7 +75,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
+            <li><a href="./HomeMagazzino.jsp">Home</a> </li>
             <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
             <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
             <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>
@@ -75,15 +86,15 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
     </div>
     <div id="containerB">
         <div id="containerB1">
-	        <div>>Inserisci Prodotti</div>
-		    <div>Rimuovi Prodotti</div>
+	        <div id="inserisci">Inserisci Prodotti</div>
+		    <div id="rimuovi">Rimuovi Prodotti</div>
 	    </div>
 	    <div id="evadi">
 	    	<div>Evadi Ordini</div>
 	    </div>
 	    <div id="containerB2">
-		    <div>Modifica Quantità Prodotti</div>  
-		    <div>Rifornimento Prodotti</div>
+		    <div id="modifica">Modifica Quantità Prodotti</div>  
+		    <div id="rifornimento">Rifornimento Prodotti</div>
 	    </div>
     </div>
     <form action="Login" method="post">

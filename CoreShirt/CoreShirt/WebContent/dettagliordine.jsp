@@ -9,7 +9,7 @@
 			<th>Quantità</th>
 		</tr>
     <%
-		  
+		  if(articoli!=null){
 		   for(TShirt beancart: articoli) {
 			   k++;
 			   String path="./Immagini/Magliette/Maglietta("+beancart.getidArticolo()+")";
@@ -27,8 +27,9 @@
 			<td class="colonna"><%=beancart.getTaglia()%></td>
 			<td class="colonna"><%=beancart.getquantita()%></td>
 		</tr>
-		<%} %>
+		<%} }%>
 	</table>
+	<%if(c!=null){ %>
 	<div id="Cliente">Cliente
 	<table class="tabella">
 		<tr>
@@ -43,6 +44,7 @@
 		</tr>
 	</table>
 	</div>
+	<%} %>
   <input type="button" class="chiudi" value="chiudi">
 </div>
 </div>

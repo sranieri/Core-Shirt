@@ -3,11 +3,11 @@
 <div id="popup">
 		<table class="tabella">
 		<tr>
-			<th>Name</th>
-			<th>Color</th>
-			<th>Size</th>
-			<th>Quantity</th>
-			<th>Price</th>
+			<th>Nome</th>
+			<th>Colore</th>
+			<th>Taglia</th>
+			<th>Quantità</th>
+			<th>Totale</th>
 		</tr>
     <%
 		   k=0;
@@ -27,10 +27,13 @@
 			<td class="colonna"><%=beancart.getColore()%></td>
 			<td class="colonna"><%=beancart.getTaglia()%></td>
 			<td class="colonna"><%=beancart.getquantita()%></td>
-			<td class="colonna"><%=beancart.getprezzo()%></td>
+			<td class="colonna"><%=beancart.getprezzo()*beancart.getquantita()%> &euro;</td>
 		</tr>
 		<%} %>
 	</table>
+   <div id="totale">totale : <%=cart.getTotal()%> &euro;</div>
+   <div>Gli articoli saranno spediti in 3-5giorni lavorativi</div>
   <input type="submit" class="submit" value="Acquista">
+  <input type="button" class="submit" id="chiudi" value="Chiudi">
 </div>
 </div>

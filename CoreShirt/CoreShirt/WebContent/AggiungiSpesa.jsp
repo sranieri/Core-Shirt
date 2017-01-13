@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
     pageEncoding="UTF-8"%>
- <%@page import="java.util.ArrayList,model.Dipendente,control.ManageDipendente,control.DbConnect" %>
+<%
+	Boolean adminRoles = (Boolean) session.getAttribute("Contabile");
+	if ((adminRoles == null) || (!adminRoles.booleanValue()))
+	{	
+	 response.sendRedirect("./Management");
+	 return;
+	}
+%>
+ <%@page import="java.util.ArrayList,model.Dipendente,control.manage.ManageDipendente,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -63,33 +71,27 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
-            <li><a href="./?action=Uomo">Ordina Prodotto</a></li>
-            <li><a href="./?action=Donna">Aggiungi Spesa</a> </li>
-            <li><a href="./About">Visualizza Flusso Economico o</a></li>
-            <li><a href="./Help">Paga Stipendi</a></li>   
+            <li><a href="./HomeContabile.jsp">Home</a> </li>
+            <li><a href="./OrdinaProdotto.jsp">Ordina Prodotti</a></li>
+            <li><a href="./AggiungiSpesa.jsp">Aggiungi Spesa</a> </li>
+            <li><a href="./FlussoEconomico?tipo=1">Visualizza Flusso Economico</a></li>
+            <li><a href="./PagaStipendi.jsp">Paga Stipendi</a></li>   
         </ul>
     </nav>
     </div>
 
 <div id="sezione"> 
-<div id="sezione2"> Paga Stipendi </div></div>
+<div id="sezione2"> Aggiungi Spesa </div></div>
 
 <div id="form">
-<form name="InsertDipendente" action="ServletDipendente" method="post" onsubmit="return validateForm()">
+<form name="InsertSpesa" action="ServletInsertSpesa" method="post">
 
-  Aggiungi Ammontare Spesa 
-  <input id="Prezzo" type="number" cognome"><br>
-   Seleziona Dipendente
-	<select id="tipo" name="tipo">
-       
-   </select><br>
-   
-	
-	
-	<br><button id="submit" type="submit" onclick="ServletProdotto" onsubmit="return validateForm()">Paga </button>
+  Inserisci Ammontare Spesa 
+  <input id="Prezzo" type="text" name="prezzo"><br>
+   Inserisci una breve descrizione
+   <textarea name="descrizione"></textarea>
 
-
+   	<br><button id="submit" type="submit" >Aggiungi </button>
 </form>
 </div>
 <br>

@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
     <script src="Script/jquery.js"></script>
+    <script src="Script/showfattura.js"></script>
     <link rel="icon" href="Immagini/sprite0.png" />
     <link rel="stylesheet" href="CSS/base.css" type="text/css">
     <link rel="stylesheet" href="CSS/Cart.css" type="text/css">
@@ -16,6 +17,29 @@
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
     <meta name="keywords" content="T-shirt, magliette, maglietta, nerd, cinema, divertenti, geek, core, series, best" />
     <title>Core Shirt: The Best T-Shirts series</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+    $( function() {
+    var availableTags = [
+    	"San Giuseppe Vesuviano",
+        "Terzigno",
+        "Napoli",
+        "Milano",
+        "Roma",
+        "Poggiomarino",
+        "Sarno",
+        "Salerno",
+        "Campobasso",
+        "Striano",
+        "Fisciano",
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
     <script>
     $(document).ready(function(){
     	$("#popup").hide();
@@ -31,27 +55,11 @@
     			$('.hidden').hide();
     		}
     	})
-    })
-    function showfattura(){
-    	var nome=$( "input[name='Nome']" ).val();
-    	var cognome=$("input[name='Cognome']").val();
-    	var indirizzo=$("input[name='Indirizzo']").val();
-    	var recapito=$("input[name='Recapito']").val();
-    	var CAP=$("input[name='CAP']").val();
-    	var NumeroCarta=$("input[name='NumeroCarta']").val();
-    	var nomeutente=$("input[name='nomeutente']").val();
-    	var password=$("input[name='password']").val();
-    	if(nome === "" || cognome === "" || indirizzo === "" || recapito === "" || CAP === "" || NumeroCarta === ""){
-    		if(nomeutente != "" && password != ""){
-    			$("#popup").show();
-    	    	$("#veil").fadeIn();
-    		}
-    	}
-    	else{
-    	$("#popup").show();
-    	$("#veil").fadeIn();}
-    }
-    
+    	$("#chiudi").click(function(){
+			$("#popup").hide();
+			$("#veil").fadeOut();
+				});
+    })    
     </script>
     
      </head>
@@ -87,11 +95,11 @@
     <h2 class="minghie">Carrello</h2>
 		<table class="tabella">
 		<tr>
-			<th>Name</th>
-			<th>Color</th>
-			<th>Size</th>
-			<th>Quantity</th>
-			<th>Price</th>
+			<th>Nome</th>
+			<th>Colore</th>
+			<th>Taglia</th>
+			<th>Quantità</th>
+			<th>Prezzo</th>
 		</tr>
     <%ArrayList<TShirt> prodcart = cart.getProducts(); 
 		   int k=0;
@@ -111,24 +119,37 @@
 			<td class="colonna"><%=beancart.getColore()%></td>
 			<td class="colonna"><%=beancart.getTaglia()%></td>
 			<td class="colonna"><%=beancart.getquantita()%></td>
-			<td class="colonna"><%=beancart.getprezzo()%></td>
+			<td class="colonna"><%=beancart.getprezzo()*beancart.getquantita()%> €</td>
 		</tr>
 		<%} %>
 	</table>
-	
-    <div class=div_hidden id="form">
+    <div class="div_hidden" id="form">
         <form action="./?" method="post">
           <input type="hidden" name="action" value="saveCart">
           <label for="Nome" class="input">Nome</label>
+          <div class="ui-widget">
           <input class="input" type="text" name="Nome">
+          </div>
           <label for="Cognome" class="input">Cognome</label>
+          <div class="ui-widget">
           <input class="input" type="text" name="Cognome">
+          </div>
           <label for="Recapito" class="input">Recapito</label>
+          <div class="ui-widget">
           <input class="input" type="text" name="Recapito">
+          </div>
+          <label for="citta" class="input">Città</label>
+          <div class="ui-widget">
+          <input id="tags" class="input" type="text" name="citta">
+          </div>
           <label for="Indirizzo" class="input">Indirizzo</label>
+          <div class="ui-widget">
           <input class="input" type="text" name="Indirizzo">
+          </div>
           <label for="CAP" class="input">CAP</label>
+          <div class="ui-widget">
           <input class="input" type="text" name="CAP">
+          </div>
           <div class="metododipagamento">
                     <div> Seleziona il metodo di pagamento:</div>
                     <select name="Payment" class="Payment">
@@ -143,12 +164,17 @@
                     </select>
                     <div class="Numerocarta">
                     <label for="NumeroCarta" class="input">Numero carta</label>
+                    <div class="ui-widget">
                     <input class="input" type="text" name="NumeroCarta"> 
+                    </div>
                     <label for="NomeUtente" class="hidden">Nome Utente</label>
+                    <div class="ui-widget">
                     <input class="hidden" type="text" name="nomeutente"> 
+                    </div>
                     <label for="Password" class="hidden">Password</label>
+                    <div class="ui-widget">
                     <input class="hidden" type="text" name="password"> 
-                                                    
+                          </div>                          
                     </div>
                 </div>
                 <button class="input" type="button" onclick="showfattura();">Confermare i dati?</button>

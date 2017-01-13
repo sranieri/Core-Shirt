@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <% Collection<?> products = (Collection<?>) request.getAttribute("products");
    Articolo product = (Articolo) request.getAttribute("product"); 
+   Object quantita=request.getSession().getAttribute("disponibilita");
    Cart cart = (Cart) request.getAttribute("cart");%>
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Articolo,model.Cart"%>
@@ -40,6 +41,43 @@
             }
             else{
         	$("#popup").hide();}
+            $(".colore").click(function(){
+            	var colore=$('.colore:checked').val();
+                var taglia=$('.taglia:checked').val();
+                if(taglia!=null&&colore!=null){
+                	var k=$( "input[name='id']" ).val();
+                	var b=$( "input[name='sesso']" ).val();
+                	var c=$( "input[name='nome']" ).val();
+                	var f=$( "input[name='prezzo']" ).val();
+                	 var a="./?action=disponibilita&id="+k+"&sesso="+b+"&nome="+c+"&color="+colore+"&taglia="+taglia+"&prezzo="+f+"&quantity="+1;
+                	 $.ajax({
+                			type:"get",
+                			url: a,
+                			success:function(result){
+                				alert("ok");
+                			}  
+             	   })
+                }
+            });
+            $(".taglia").click(function(){
+            	var colore=$('.colore:checked').val();
+                var taglia=$('.taglia:checked').val();
+                if(taglia!=null&&colore!=null){
+                	var k=$( "input[name='id']" ).val();
+                	var b=$( "input[name='sesso']" ).val();
+                	var c=$( "input[name='nome']" ).val();
+                	var f=$( "input[name='prezzo']" ).val();
+                	 var a="./?action=disponibilita&id="+k+"&sesso="+b+"&nome="+c+"&color="+colore+"&taglia="+taglia+"&prezzo="+f+"&quantity="+1;
+                	 $.ajax({
+                			type:"get",
+                			url: a,
+                			success:function(result){
+                				alert("ok");
+                			}  
+             	   })
+                }
+            })
+            
         })
         function changeColor(color)
         {
@@ -211,6 +249,7 @@
             </div>
         </div>
     </div>
+    <div class="disponibilita">disponibilita: <%=quantita%></div>
         <footer>
         <div class="container">
 		<div class="row">

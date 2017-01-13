@@ -4,8 +4,14 @@
 <%
     ArrayList<TShirt> articoli=(ArrayList<TShirt>) session.getAttribute("listaArticoli");
     Cliente c=(Cliente) session.getAttribute("Cliente");
+    Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+    if ((adminRoles == null) || (!adminRoles.booleanValue()))
+      {	
+       response.sendRedirect("./Management");
+       return;
+      }
 %>
- <%@page import="java.util.*,model.Ordine,model.Cliente,model.TShirt,control.ManageOrdine,control.DbConnect" %>
+ <%@page import="java.util.*,model.Ordine,model.Cliente,model.TShirt,control.manage.ManageOrdine,control.manage.DbConnect" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="it">
 <head>
@@ -73,7 +79,7 @@
       <div>
     <nav>    
             <ul id="Lista">
-            <li><a href="./">Home</a> </li>
+            <li><a href="./HomeMagazzino.jsp">Home</a> </li>
             <li><a href="./InserisciProdotto.jsp">Inserisci Prodotti</a></li>
             <li><a href="./RimuoviProdotto.jsp">Rimuovi Prodotti</a> </li>
             <li><a href="./EvadiOrdine.jsp">Evadi Ordini</a></li>

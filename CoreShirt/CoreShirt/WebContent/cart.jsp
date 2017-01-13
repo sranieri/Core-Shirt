@@ -66,7 +66,7 @@
 <div id="contenitore">
  <% String x=""+cart.getTotal();
     x=x.substring(0,x.length()-2);
-     if(cart != null) { %>
+     if(cart != null && cart.getProducts().size()>0) { %>
 		<h2 class="minghie">Carrello</h2>
 		<table class="tabella">
 		<tr>
@@ -138,7 +138,6 @@
 		</tr>
 		<%} %>
 	</table>		
-	<% } %>	
 	<table id="subtotal">
 	<tr>
 	    <th class="subtotale-header"> Subtotale </th>
@@ -160,6 +159,11 @@
 	</td>
 	</tr>
 	</table>
+	<% } 
+     else{
+	%>
+	<div>Carrello vuoto</div>
+	<%} %>	
 	</div>
 	
 <footer>

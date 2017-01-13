@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <%@page import="java.util.ArrayList,model.Articolo,control.ManageArticolo,control.DbConnect,java.sql.*" %>
+  <%@page import="java.util.ArrayList,model.Articolo,control.manage.ManageArticolo,control.manage.DbConnect,java.sql.*" %>
  
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Articolo,model.Cart"%>
