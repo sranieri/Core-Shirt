@@ -1,2 +1,2 @@
 # Core-Shirt
-Software gestionale per un sito di e-commerce.
+Software per un sito di e-commerce.
