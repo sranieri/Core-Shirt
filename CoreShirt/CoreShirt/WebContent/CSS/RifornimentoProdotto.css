@@ -27,7 +27,7 @@
 #anteprima img{
 	width: 325px;
 	height: 325px;
-	margin-bottom: -250px;
+	margin-bottom:-250px;
 }
 
 #lista{
@@ -37,7 +37,7 @@
 }
 #dettagli{
 	border-top: 2px solid black;
-	margin-bottom:100px;
+	margin-bottom:0px;
 }
 #form, #lista{
 	display:inline-table;

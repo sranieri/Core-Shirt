@@ -78,7 +78,7 @@
 <div id="sezione"> 
 <div id="sezione2"> Ordina Prodotto </div></div>
 <div id="rifornimento">
-   <form action="ServletRifornimento" method="post">
+   <form id="rifornimento2" action="ServletRifornimento" method="post">
       <input type="hidden" name="evadi" value="1">
       Seleziona Richiesta 
       <select id="Richieste" name="richiesta">
@@ -139,6 +139,7 @@
 		       <option value="M">Uomo</option>
 		       <option value="F">Donna</option>
    			</select> 
+   			<br/>
      Inserisci Quantita
 	<input id="Quantita" type="number" name="insertQuantita"><br>
 	

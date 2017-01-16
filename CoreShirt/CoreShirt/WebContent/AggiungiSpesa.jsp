@@ -84,10 +84,10 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 <div id="sezione2"> Aggiungi Spesa </div></div>
 
 <div id="form">
-<form name="InsertSpesa" action="ServletInsertSpesa" method="post">
+<div id="prezzo"><form name="InsertSpesa" action="ServletInsertSpesa" method="post">
 
   Inserisci Ammontare Spesa 
-  <input id="Prezzo" type="text" name="prezzo"><br>
+  <input id="Prezzo" type="text" name="prezzo"><br></div>
    Inserisci una breve descrizione
    <textarea name="descrizione"></textarea>
 

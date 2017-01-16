@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/ModificaQuantitaProdotto.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/RifornimentoProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
