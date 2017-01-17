@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="../GenerazioneOrdine.html">GenerazioneOrdine</a></td></tr>
+<tr><td><a href="Checkout02.html">Checkout02</a></td></tr>
+<tr><td><a href="Checkout03.html">Checkout03</a></td></tr>
+<tr><td><a href="Checkout04.html">Checkout04</a></td></tr>
+<tr><td><a href="Checkout05.html">Checkout05</a></td></tr>
+<tr><td><a href="Checkout06.html">Checkout06</a></td></tr>
+<tr><td><a href="Checkout07.html">Checkout07</a></td></tr>
+<tr><td><a href="Checkout08.html">Checkout08</a></td></tr>
+<tr><td><a href="Checkout09.html">Checkout09</a></td></tr>
+<tr><td><a href="Checkout10.html">Checkout10</a></td></tr>
+<tr><td><a href="Checkout11.html">Checkout11</a></td></tr>
+<tr><td><a href="Checkout12.html">Checkout12</a></td></tr>
+<tr><td><a href="Checkout13.html">Checkout13</a></td></tr>
+<tr><td><a href="Checkout14.html">Checkout14</a></td></tr>
+<tr><td><a href="Checkout15.html">Checkout15</a></td></tr>
+<tr><td><a href="Checkout16.html">Checkout16</a></td></tr>
+<tr><td><a href="Checkout17.html">Checkout17</a></td></tr>
+<tr><td><a href="Checkout18.html">Checkout18</a></td></tr>
+<tr><td><a href="Checkout01.html">Checkout01</a></td></tr>
+</tbody></table>
+</body>
+</html>

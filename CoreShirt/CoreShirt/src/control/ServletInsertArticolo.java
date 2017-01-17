@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -67,8 +69,14 @@ public class ServletInsertArticolo extends HttpServlet {
 				int idDipendente=Integer.parseInt(request.getParameter("id"));
 				Rifornimento r=new Rifornimento(""+idDipendente,""+num, request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),request.getParameter("insertQuantita"));
 				new ManageRifornimento().insertRifornimento(r,"evaso");
-				response.sendRedirect("OrdinaProdotto.jsp");
-
+				try {
+					request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		    	request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
+		    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrdinaProdotto.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
 		else{
@@ -84,9 +92,16 @@ public class ServletInsertArticolo extends HttpServlet {
 			TShirt t= new TShirt(ma.getArticolo(num),request.getParameter("sesso"),request.getParameter("taglia"),request.getParameter("colore"),Integer.parseInt(request.getParameter("insertQuantita")));
 			new ManageTshirt().insertTshirt(t);
 			ma.updateQuantita(""+num, ma.getQuantita(num)+t.getquantita());
-			response.sendRedirect("InserisciProdotto.jsp");
-
-		}
+			request.setAttribute("aggiunto", "Articolo aggiunto");
+			try {
+				request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    	request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
+	    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/InserisciProdotto.jsp");
+			dispatcher.forward(request, response);
+			}
 		}
 	}
 

@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -44,6 +45,12 @@ public class ServletTShirt extends HttpServlet {
 		    		   request.setAttribute("rimossa",true);
 		    	   }
 		        }
+		    	try {
+					request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		    	request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
 		    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeMagazzino.jsp");
 				dispatcher.forward(request, response);
 		    }
@@ -53,7 +60,14 @@ public class ServletTShirt extends HttpServlet {
 			mt.insertTshirt(t);
 			ManageArticolo ma=new ManageArticolo();
 			ma.updateQuantita(""+num, ma.getQuantita(num)+t.getquantita());
-			response.sendRedirect("HomeMagazzino.jsp");
+			try {
+				request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeMagazzino.jsp");
+			dispatcher.forward(request, response);
 		    }
 	}
 	/**

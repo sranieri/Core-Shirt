@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%
   Boolean adminRoles = (Boolean) session.getAttribute("Magazzino");
+  Object aggiunto=request.getAttribute("aggiunto");
   if ((adminRoles == null) || (!adminRoles.booleanValue()))
     {	
      response.sendRedirect("./Management");
@@ -15,12 +16,14 @@
 <head>
     <script src="Script/jquery.js"></script>
     <script src="Script/loadmore.js"></script>
+    <script src="Script/prodotto.js"></script>
     <link rel="icon" href="./Immagini/sprite0.png" />
     <link rel="stylesheet" href="./CSS/base.css" type="text/css">
     <link rel="stylesheet" href="./CSS/home.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciDipendente.css" type="text/css">
     <link rel="stylesheet" href="./CSS/InserisciProdotto.css" type="text/css">
     <link rel="stylesheet" href="./CSS/thumbnails.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/Dettagli.css" type="text/css">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="it-IT" />
     <meta name="description" content="Il miglior sito dove acquistare T-Shirt  per qualsiasi gusto e necessità, con un'ampia scelta di modelli aggiornati periodicamente con i migliori design della rete." />
@@ -41,8 +44,6 @@
     </script>
 </head>
 <body>
-
-
 <div>     
     <article id="articolo" >
 		<script src="checkForm.js"></script>
@@ -88,9 +89,9 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 </div>
 <div id="form">
 <div id="InserisciProdotto">Inserisci nuovo prodotto</div>
-<form name="InsertArticolo" method="post" enctype="multipart/form-data" action="ServletInsertArticolo">
+<form name="InsertArticolo" method="post" enctype="multipart/form-data" action="ServletInsertArticolo" onsubmit="return prodotto()">
 			Nome
-			<input type="text" name="insertNome"/><br>
+			<input id="nome" type="text" name="insertNome"/><br>
 			Categoria
 			<select name="insertCategoria">
                              <option value="Cinema">Cinema</option>
@@ -107,7 +108,7 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
    			</select> 
    			<br>
 			Prezzo
-			<input type="text" name="insertPrezzo"/><br>
+			<input id="prezzo" type="text" name="insertPrezzo"/><br>
 		   Seleziona Colore
 			<select id="colore" name="colore">
 		       <option value="black">Nero</option>
@@ -131,13 +132,13 @@ ArrayList<Dipendente> dipendenti=md.getDipendenti(); */
 		       <option value="5XL">5XL</option>
 		   </select><br>
 			Quantità
-			<input type="text" name="insertQuantita"/><br>
+			<input id="quantita" type="text" name="insertQuantita"/><br>
 			Immagine
 			<input type="file" name="upfile" placeholder="Nome file" required></input>
 			<br>
 			Anteprima
 			<input type="file" name="anteprima" placeholder="Nome file" required></input>
-			<br><input type="submit"  value="Inserisci Articolo">
+			<br><button id="submit" type="submit" onclick="ServletInsertArticolo" onsubmit="return prodotto()">Inserisci</button>
 		</form>
 </div>
 <br>

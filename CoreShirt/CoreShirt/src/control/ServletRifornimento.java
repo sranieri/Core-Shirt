@@ -1,13 +1,18 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.manage.ManageArticolo;
 import control.manage.ManageRifornimento;
+import control.manage.ManageTshirt;
 import model.Rifornimento;
 
 /**
@@ -32,7 +37,9 @@ public class ServletRifornimento extends HttpServlet {
 		if(request.getParameter("evadi")!=null){
 			String idRifornimento=request.getParameter("richiesta");
 			new ManageRifornimento().evadi(idRifornimento);
-			response.sendRedirect("HomeContabile.jsp");
+			request.getSession().setAttribute("rifornimenti", new ManageRifornimento().getInevasi());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeContabile.jsp");
+			dispatcher.forward(request, response);
 		}
 		else{
 		String idDipendente=request.getParameter("dipendente");
@@ -43,7 +50,15 @@ public class ServletRifornimento extends HttpServlet {
 		String quantita=request.getParameter("quantita");
 		Rifornimento r=new Rifornimento(idDipendente,articolo,sesso,taglia,colore,quantita);
 	    new ManageRifornimento().insertRifornimento(r);
-	    response.sendRedirect("HomeMagazzino.jsp");}
+	    try {
+			request.getSession().setAttribute("articoli",new ManageArticolo().doRetrieveMen());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	request.getSession().setAttribute("rifornimento", new ManageTshirt().getArticoliS());
+    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeMagazzino.jsp");
+		dispatcher.forward(request, response);
+		}
 	}
 
 	/**

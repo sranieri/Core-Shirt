@@ -60,6 +60,7 @@ public class GestisciDipendente extends HttpServlet {
 		if(request.getParameter("delete")!=null){
 			id=Integer.parseInt(request.getParameter("delete"));
 			md.deleteDipendente(id);
+			request.getSession().setAttribute("dipendenti", new ManageDipendente().getDipendenti());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/HomeDipendenti.jsp");
 			dispatcher.forward(request, response);
 		}

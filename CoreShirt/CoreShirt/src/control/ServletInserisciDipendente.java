@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +62,10 @@ public class ServletInserisciDipendente extends HttpServlet {
 			System.out.println("ok");
 		else
 			System.out.println("no");
-		response.sendRedirect("InserisciDipendente.jsp");
+		
+		request.getSession().setAttribute("dipendenti", new ManageDipendente().getDipendenti());
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/InserisciDipendente.jsp");
+		dispatcher.forward(request, response);
 		
 
 

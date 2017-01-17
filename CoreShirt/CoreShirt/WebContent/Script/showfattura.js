@@ -8,48 +8,116 @@ var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0
     	var citta=$("input[name='citta']").val();
     	var CAP=$("input[name='CAP']").val();
     	var NumeroCarta=$("input[name='NumeroCarta']").val();
-    	var nomeutente=$("input[name='nomeutente']").val();
+    	var username=$("input[name='nomeutente']").val();
     	var Payment=$('.Payment').val();
     	if(!nome.match(/^[A-Za-z ]{3,30}$/)){
-    		alert("Inserire un nome");
-    		return false;
+    		nome="no";
     	}
     	if(!cognome.match(/^[A-Za-z ]{3,30}$/)){
-    		alert("Inserire un cognome");
-    		return false;
+    		cognome="no";
     	}
     	if(!recapito.match(re)){
-    		alert("Inserire un'email valida");
-    		return false;
+    		recapito="no";
     	}
     	if(!citta.match(/^[A-Za-z ]{3,30}$/)){
-    		alert("Inserire una città");
-    		return false;
+    		citta="no";
     	}
     	var regexp = /^[\w\s.-]+\d$/;
     	if(!regexp.test(indirizzo)){
-    		alert("Inserire un indirizzo");
-    		return false;
+    		indirizzo="no";
     	}
     	if(!CAP.match(/^[0-9]{5}$/)){
-    		alert("Inserire un cap");
-    		return false;
+    		CAP="no";
     	}
     	if(Payment=='3'){
     		if(!username.match(re)){
-        		alert("Inserire un'email corretta");
-        		return false;
-    		}
-    		if(!password===""){
-        		alert("Inserire password");
-        		return false;
+        		username="no";
     		}
     	}
     	else{
     	if(!NumeroCarta.match(/^[0-9]{16}$/)){
-    		alert("Inserire un numero di carta");
-    		return false;
+    		NumeroCarta="no";
     	}
+    	}
+    	if(nome=="no"){
+    		if(cognome=="no"||recapito=="no"||citta=="no"||indirizzo=="no"||CAP=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("nome non valido");
+    			return false;
+    		}
+    	}
+    	if(cognome=="no"){
+    		if(nome=="no"||recapito=="no"||citta=="no"||indirizzo=="no"||CAP=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("cognome non valido");
+    			return false;
+    		}
+    	}
+    	if(recapito=="no"){
+    		if(cognome=="no"||nome=="no"||citta=="no"||indirizzo=="no"||CAP=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("email non valida");
+    			return false;
+    		}
+    	}
+    	if(citta=="no"){
+    		if(cognome=="no"||recapito=="no"||nome=="no"||indirizzo=="no"||CAP=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("città non valido");
+    			return false;
+    		}
+    	}
+    	if(indirizzo=="no"){
+    		if(cognome=="no"||recapito=="no"||citta=="no"||nome=="no"||CAP=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("indirizzo non valido");
+    			return false;
+    		}
+    	}
+    	if(CAP=="no"){
+    		if(cognome=="no"||recapito=="no"||citta=="no"||indirizzo=="no"||nome=="no"||username=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("CAP non valido");
+    			return false;
+    		}
+    	}
+    	if(username=="no"){
+    		if(cognome=="no"||recapito=="no"||citta=="no"||indirizzo=="no"||CAP=="no"||nome=="no"||NumeroCarta=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("username non valido");
+    			return false;
+    		}
+    	}
+    	if(NumeroCarta=="no"){
+    		if(cognome=="no"||recapito=="no"||citta=="no"||indirizzo=="no"||CAP=="no"||username=="no"||nome=="no"){
+    			alert("uno o più input non sono validi");
+    			return false;
+    		}
+    		else{
+    			alert("numero carta non valido");
+    			return false;
+    		}
     	}
     	$("#popup").show();
     	$("#veil").fadeIn();

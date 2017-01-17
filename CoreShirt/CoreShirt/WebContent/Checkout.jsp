@@ -34,6 +34,7 @@
         "Campobasso",
         "Striano",
         "Fisciano",
+        "Baronissi",
     ];
     $( "#tags" ).autocomplete({
       source: availableTags

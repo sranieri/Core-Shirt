@@ -52,6 +52,7 @@ public class ServletLogin extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String tipo=new ManageDipendente().checkLogin(username, password);
+		request.getSession().removeAttribute("aggiunto");
 		if(tipo == null){
 			request.getSession().setAttribute("adminRoles", new Boolean(false));
 			path="/login.jsp";
